@@ -1,0 +1,90 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: #f0f0f0;
+  color: #ffffff;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+img {
+  position: relative;
+  height: 100%;
+}
+h1 {
+  margin: 0;
+  display: flex;
+  position: relative;
+}
+a {
+  position: relative;
+  display: flex;
+  text-decoration: none;
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+
+.mainDiv {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+
+.mainWeekBlock {
+  margin-top: 90px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+}
+
+#lowest {
+  border-bottom: 0;
+}
+
+#highest {
+  margin-top: 0;
+}
+
+.addWeek-btn {
+  display: flex;
+  align-content: center;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  z-index: 2;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.addWeek-btn img {
+  display: flex;
+  position: relative;
+  height: 80%;
+  margin: auto;
+  z-index: 7;
+}
+
+.addWeek-block {
+  display: flex;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
