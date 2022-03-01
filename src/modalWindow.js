@@ -1,7 +1,7 @@
 import './modalWindow.css'
 import './App.css'
 
-function ModalWindow({active, setActive}) {
+function ModalMenuWindow({active, setActive}) {
     return (
         <div className={active ? "modalOverlay active" : "modalOverlay"} id="menu" onClick={() => {setActive(false)}}>
             <div className={active ? "modalContent active" : "modalContent"}>
@@ -14,4 +14,4 @@ function ModalWindow({active, setActive}) {
     );
 }
 
-export default ModalWindow;
+export default ModalMenuWindow;

@@ -41,8 +41,7 @@ p {
   margin-top: 90px;
   display: flex;
   position: relative;
-  align-items: center;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 

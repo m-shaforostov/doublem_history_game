@@ -1,0 +1,110 @@
+.modalTaskOverlay {
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: all;
+    z-index: 3;
+    transition: 0.3s;
+}
+
+
+.modalTaskContent {
+    position: relative;
+    flex-direction: column;
+    height: 300px;
+    width: 560px;
+    display: flex;
+    background: white;
+    transition: 0.3s;
+}
+
+
+.taskHeader {
+    height: 60px;
+    width: 100%;
+}
+
+.taskHeader h1 {
+    color: #c20d00;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.taskBody {
+    display: flex;
+    height: 180px;
+    align-items: center;
+    justify-content: center;
+}
+
+.taskBody textarea {
+    height: 90%;
+    width: 90%;
+    font-size: 20px;
+    overflow-y: auto;
+    border: #c20d00 solid 1px;
+    resize: none;
+}
+
+.taskFooter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+}
+
+.taskFooter button {
+    border: #c20d00 solid 1px;
+    display: flex;
+    margin-right: 25px;
+    height: 45px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.cancel {
+    color: #c20d00;
+    background-color: white;
+    width: 90px;
+    font-size: 8px;
+}
+
+button h1 {
+    justify-content: center;
+}
+
+.cancel:hover {
+    color: #c20d00;
+    background-color: #ffcbc7;
+    width: 90px;
+    font-size: 8px;
+    text-align: center;
+}
+
+
+
+.save {
+    color: white;
+    background: #c20d00;
+    width: 90px;
+    font-size: 8px;
+    text-align: center;
+}
+
+.save:hover {
+    color: white;
+    background: #ff7066;
+    width: 90px;
+    font-size: 8px;
+    text-align: center;
+}

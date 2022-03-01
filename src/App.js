@@ -2,7 +2,7 @@ import './App.css';
 import './header.css'
 import Weekdays from "./weekDays";
 import CalendarContent from "./calendarContent"
-import ModalWindow from "./modalWindow";
+import ModalMenuWindow from "./modalWindow";
 import {useState} from "react";
 import logo from "./images/logo.png";
 import menu from "./images/menu.png";
@@ -23,12 +23,12 @@ function App() {
                     </div>
                 </div>
                 <div className="menu" title='Menu'>
-                    <img id="menuIMG" src={menu} alt="" onClick={() => setModalActive(true)}/>
+                    <img id="menuIMG" src={menu} alt="" onClick={() => {modalActive===true ? setModalActive(false) : setModalActive(true)}}/>
                 </div>
             </div>
 
             <div className="content">
-                <ModalWindow active={modalActive} setActive={setModalActive}/>
+                <ModalMenuWindow active={modalActive} setActive={setModalActive}/>
                 <div className="mainWeekBlock">
                     <Weekdays/>
                     <CalendarContent/>

@@ -6,24 +6,32 @@
     margin-left: 10px;
     margin-bottom: 10px;
     height: 100%;
-    width: 300px;
+    width: 200px;
 }
 
 .weekNumb {
     display: flex;
     position: relative;
     align-items: center;
+    justify-content: center;
     background: white;
-    padding: 10px;
+    width: 50px;
     margin-right: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.columnName, .weekday {
+.weekDaysList {
+    display: flex;
+    flex-direction: column;
+    width: 145px;
+}
+
+
+.monthName, .weekday {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
+    width: 100%;
     background: white;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
@@ -38,16 +46,11 @@
     margin-top: 20px;
 }
 
-.columnName {
+.monthName {
     height: 40px;
     margin-bottom: 5px;
 }
 
 
 
-.weekDaysList {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
 
