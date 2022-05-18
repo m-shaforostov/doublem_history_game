@@ -51,6 +51,7 @@
     overflow-y: auto;
     border: #c20d00 solid 1px;
     resize: none;
+    outline: none;
 }
 
 .taskFooter {

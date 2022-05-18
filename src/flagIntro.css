@@ -1,0 +1,111 @@
+.introDivFirst {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+}
+
+.introDiv {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+}
+
+.whiteBgFirst {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: white;
+    z-index: 0;
+}
+
+.whiteBgSecond {
+    display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: white;
+    opacity: 0;
+    transition: 1000ms;
+}
+
+.flagImgFirst {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.flagImgSecond {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: 1;
+    transform: rotate(360deg);
+    transition: 1000ms;
+}
+
+.flagImgLast {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transform: rotate(360deg);
+    transition: 2000ms;
+}
+
+.flagBlockFirst {
+    display: flex;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: solid 5px white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.flagBlockSecond {
+    display: flex;
+    position: relative;
+    width: 200vw;
+    height: 200vw;
+    border-radius: 50%;
+    border: solid 5px white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    z-index: 1;
+    transition: 2000ms;
+}
+
+.actionTextFirst {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+}
+
+.actionTextSecond {
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    opacity: 0;
+    transition: 1000ms;
+}
+
+p {
+    color: gray;
+}

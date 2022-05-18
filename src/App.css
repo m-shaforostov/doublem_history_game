@@ -4,11 +4,12 @@ html {
 }
 
 body {
-  background: #f0f0f0;
+  /*background: #f0f0f0;*/
   color: #ffffff;
   margin: 0;
   height: 100%;
   width: 100%;
+  background-image: url("./images/background6.png");
 }
 img {
   position: relative;
@@ -32,9 +33,20 @@ p {
 .mainDiv {
   display: flex;
   position: relative;
+  overflow: auto;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
+}
+
+.siteMainDiv {
+  display: flex;
+  position: fixed;
+  flex-wrap: wrap;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
 }
 
 .mainWeekBlock {
