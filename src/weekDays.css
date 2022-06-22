@@ -6,7 +6,7 @@
     margin-left: 10px;
     margin-bottom: 10px;
     height: 100%;
-    width: 200px;
+    width: 230px;
 }
 
 .weekNumb {
@@ -23,11 +23,11 @@
 .weekDaysList {
     display: flex;
     flex-direction: column;
-    width: 145px;
+    width: 175px;
 }
 
 
-.monthName, .weekday {
+.monthName, .weekday, .today {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,11 +37,11 @@
     white-space: nowrap;
 }
 
-.weekday:hover {
+.today {
     background-color: #ffcbc7;
 }
 
-.weekday {
+.weekday, .today {
     height: 70px;
     margin-top: 20px;
 }

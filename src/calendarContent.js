@@ -2,27 +2,48 @@ import './calendarContent.css';
 import './weekDays.css'
 import './App.css'
 import plusWhite from './images/plusWhite.png'
+import minusWhite from './images/minusWhite.png'
+import refresh from './images/unnamed.png'
 import React, {useState} from "react";
 import ModalWritingTaskWindow from "./modalWriteTaskWindow"
+import _ from 'lodash'
 
 function CalendarContent(props) {
-    const [modalActive, setModalActive] = useState(false);
+    const clearCellsObject = {
+        validity: [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ],
+        text:[
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
+    }
+
+
     const [taskxId, setTaskxId] = useState(0);
     const [taskyId, setTaskyId] = useState(0);
+    const [modalActive, setModalActive] = useState(false);
     const [cellsNumb, setCellsNumb] = useState([1,1,1,1,1,1,1]);
-    const [cellText, setCellText] = useState({
-            text:   [
-                [""],
-                [""],
-                [""],
-                [""],
-                [""],
-                [""],
-                [""]
-            ]
-        }
-    );
+    const [cellsObject, setCellsObject] = useState(clearCellsObject);
+    // const [taskValidity, setTaskValidity] = useState([])
 
+    function refreshTasks () {
+        setCellsObject(clearCellsObject);
+        setCellsNumb([1,1,1,1,1,1,1]);
+    }
 
     const setModalTextId = (xid,yid) => () => {  //Зберігає координати натиснутої комірки для подальшого порівняння з номерами текстових полів
         setTaskxId(xid);
@@ -31,40 +52,58 @@ function CalendarContent(props) {
     }
 
     function funcSetCellText(text){
-        let emptyObj = {};
-        const a = Object.assign(cellText, emptyObj);
-        console.log(a);
-        a.text[taskyId-1][taskxId] = text;
-        console.log(a);
-        setCellText(a);
+        const a = _.cloneDeep(cellsObject);
+        a.text[taskyId][taskxId] = text;
+        setCellsObject(a);
     }
 
-    function Task(tasks){
-        async function changeCellsNumb() {
-            let cells = cellsNumb[tasks.y-1];
-            console.log(cells);
-            cells++;
-            console.log(cells);
-            await setCellsNumb(cells);
-            console.log(cellsNumb);
+    function funcSetCellValitidy(x, y) {
+        const a = _.cloneDeep(cellsObject);
+        a.validity[y][x] = !a.validity[y][x];
+        setCellsObject(a);
+    }
+
+    function Task({id, y}){
+        function increaseCellsNumb() {
+            let cellsNumbCopy = _.cloneDeep(cellsNumb);
+            let cellsObjectCopy = _.cloneDeep(cellsObject);
+            cellsNumbCopy[y]+=1;
+            cellsObjectCopy.validity[y][cellsNumbCopy[y]] = undefined;
+            setCellsNumb(cellsNumbCopy);
+            setCellsObject(cellsObjectCopy);
         }
 
-        let a = new Array(tasks.numb[tasks.y-1]);
+        function decreaseCellsNumb() {
+            if (cellsNumb[y] > 1) {
+                let cellsNumbCopy = _.cloneDeep(cellsNumb);
+                let cellsObjectCopy = _.cloneDeep(cellsObject);
+                cellsObjectCopy.text[y][cellsNumbCopy[y]] = "";
+                cellsNumbCopy[y] -= 1;
+                setCellsNumb(cellsNumbCopy);
+                setCellsObject(cellsObjectCopy);
+            }
+        }
+
+        let a = new Array(cellsNumb[y]);
         a.fill(0);
         return(
-            <div className={"dailyTasks"} id={tasks.id}>
+            <div className={"dailyTasks"} id={id}>
                 {
                     a.map((x, i) => //Створення текстових вікон для запису завдань. modal(x,y)Id - координати комірки
-                        // <div>
-                            <div className="task" id={`taskId${i+1}:${tasks.y}`} onClick={setModalTextId(i+1, tasks.y)}>
-                                <pre className={"shownTaskText"}>{cellText.text[tasks.y-1][i+1]}</pre>
-                            </div>
-                            // <div className={"deleteTask"}><p>-</p></div>
-                        // </div>
+
+                        <div className={!cellsObject.validity[y][i+1] ? "taskON" : "taskOFF"} onClick={setModalTextId(i+1, y)}>
+                            <pre className={"shownTaskText"}>{cellsObject.text[y][i+1]}</pre>
+
+                        </div>
                     )
                 }
-                <div className="addTask-btn" title='Add new task' onClick={changeCellsNumb}>
-                    <img src={plusWhite} alt=""/>
+                <div className="plusMinusButtons">
+                    <div className="addTask-btn" title='Add new task' onClick={increaseCellsNumb}>
+                        <img src={plusWhite} alt=""/>
+                    </div>
+                    <div className="removeTask-btn" title='Add new task' onClick={decreaseCellsNumb}>
+                        <img src={minusWhite} alt=""/>
+                    </div>
                 </div>
             </div>
         );
@@ -72,16 +111,24 @@ function CalendarContent(props) {
 
     return (
         <div className="calendarContent">
-            <div className="columnName"><h1>Завдання на тиждень:</h1></div>
+            <div className="columnName">
+                <h1>Завдання на тиждень:</h1>
+                <div className={"refreshButton"} onClick={refreshTasks} title='Clear the desk'>
+                    <img src={refresh} alt=""/>
+                </div>
+            </div>
             <div className="tasksBlock">
-                <ModalWritingTaskWindow active={modalActive} setActive={setModalActive} x={taskxId} y={taskyId} areaText={cellText.text[taskyId][taskxId]} funcSetCellText={funcSetCellText}/>
-                <Task numb={cellsNumb} id={"highest"} y={1}/>
-                <Task numb={cellsNumb} y={2}/>
-                <Task numb={cellsNumb} y={3}/>
-                <Task numb={cellsNumb} y={4}/>
-                <Task numb={cellsNumb} y={5}/>
-                <Task numb={cellsNumb} y={6}/>
-                <Task numb={cellsNumb} id={"lowest"} y={7}/>
+                {
+                    modalActive &&
+                    <ModalWritingTaskWindow active={modalActive} setActive={setModalActive} x={taskxId} y={taskyId} cellsObject={cellsObject} funcSetCellText={funcSetCellText} funcSetCellValitidy={funcSetCellValitidy}/>
+                }
+                <Task id={"highest"} y={1}/>
+                <Task y={2}/>
+                <Task y={3}/>
+                <Task y={4}/>
+                <Task y={5}/>
+                <Task y={6}/>
+                <Task id={"lowest"} y={7}/>
             </div>
 
         </div>
@@ -89,6 +136,3 @@ function CalendarContent(props) {
 }
 
 export default CalendarContent;
-//
-// ; ReactDOM.render(<React.StrictMode><App /></React.StrictMode>, document.getElementById('root'));
-

@@ -56,8 +56,9 @@
 
 .taskFooter {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
     width: 100%;
     height: 60px;
 }
@@ -65,8 +66,14 @@
 .taskFooter button {
     border: #c20d00 solid 1px;
     display: flex;
-    margin-right: 25px;
     height: 45px;
+}
+
+.rightButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 25px;
+    width: 205px;
 }
 
 button:hover {
@@ -76,7 +83,7 @@ button:hover {
 .cancel {
     color: #c20d00;
     background-color: white;
-    width: 90px;
+    padding: 10px;
     font-size: 8px;
 }
 
@@ -87,25 +94,47 @@ button h1 {
 .cancel:hover {
     color: #c20d00;
     background-color: #ffcbc7;
-    width: 90px;
+    padding: 10px;
     font-size: 8px;
     text-align: center;
 }
 
 
 
-.save {
+.save, .startedTask {
     color: white;
     background: #c20d00;
-    width: 90px;
+    padding: 10px;
     font-size: 8px;
     text-align: center;
 }
 
-.save:hover {
+.save:hover, .startedTask:hover {
     color: white;
     background: #ff7066;
-    width: 90px;
+    padding: 10px;
+    font-size: 8px;
+    text-align: center;
+}
+
+.leftButtons {
+    display: flex;
+    margin-left: 25px;
+    width: 100px;
+}
+
+.endedTask {
+    color: white;
+    background: #b1b1b1;
+    padding: 10px;
+    font-size: 8px;
+    text-align: center;
+}
+
+.endedTask:hover {
+    color: black;
+    background: #dcdcdc;
+    padding: 10px;
     font-size: 8px;
     text-align: center;
 }

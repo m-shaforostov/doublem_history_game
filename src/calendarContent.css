@@ -5,7 +5,7 @@
     color: black;
     margin: 0 14px 0 20px;
     max-width: calc(100vw - 259px);
-    min-width: 380px;
+    min-width: 408px;
     width: 100%;
 }
 
@@ -33,28 +33,53 @@
     border-radius: 0 10px 10px 0;
 }
 
-.addTask-btn {
+.plusMinusButtons {
     display: flex;
     position: relative;
     align-content: center;
     width: 50px;
     height: 100%;
     border-radius: 0 10px 10px 0;
-    background: #c20d00;
-    cursor: pointer;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    flex-wrap: wrap;
 }
 
-.addTask-btn img {
+.addTask-btn, .removeTask-btn {
+    display: flex;
+    position: relative;
+    align-content: center;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.addTask-btn {
+    border-radius: 0 10px 0 0;
+    background: #c20d00;
+    border-bottom: black 1px solid;
+    height: calc(50% - 1px);
+}
+
+.removeTask-btn {
+    background: #c20d00;
+    border-radius: 0 0 10px 0;
+    height: 50%;
+}
+
+.addTask-btn:active, .removeTask-btn:active {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0);
+}
+
+.addTask-btn img, .removeTask-btn img  {
     display: flex;
     position: relative;
     width: 60%;
     height: auto;
     margin: auto;
     cursor: pointer;
+    -webkit-user-drag: none;
 }
 
-.task {
+.taskON {
     display: flex;
     position: relative;
     width: 250px;
@@ -64,13 +89,24 @@
     cursor: pointer;
 }
 
-.task:hover {
+.taskON:hover {
     background-color: #ffcbc7;
+}
+
+.taskOFF {
+    display: flex;
+    position: relative;
+    text-decoration: line-through;
+    width: 250px;
+    height: 70px;
+    background: #dedede;
+    border-right: solid 1px #c9c9c9;
+    cursor: pointer;
 }
 
 .columnName {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     white-space: nowrap;
     background: white;
@@ -85,12 +121,26 @@
     margin-left: 5px;
 }
 
+.refreshButton {
+    transition: 100ms;
+    height: 70%;
+    margin-right: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.refreshButton:active {
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+
 .shownTaskText {
     overflow: hidden;
     width: 100%;
     height: 100%;
     margin: 0;
     padding-left: 5px;
+    font-size: 20px;
 }
 
 .deleteTask {
