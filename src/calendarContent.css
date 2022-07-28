@@ -30,46 +30,28 @@
     max-width: max-content;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     border-left: 1px solid lightgray;
-    border-radius: 0 10px 10px 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.plusMinusButtons {
+
+.addTask-btn{
     display: flex;
     position: relative;
     align-content: center;
     width: 50px;
     height: 100%;
-    border-radius: 0 10px 10px 0;
-    flex-wrap: wrap;
-}
-
-.addTask-btn, .removeTask-btn {
-    display: flex;
-    position: relative;
-    align-content: center;
-    width: 100%;
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-}
-
-.addTask-btn {
-    border-radius: 0 10px 0 0;
+    border-radius: 0 10px 10px 0;
     background: #c20d00;
-    border-bottom: black 1px solid;
-    height: calc(50% - 1px);
 }
 
-.removeTask-btn {
-    background: #c20d00;
-    border-radius: 0 0 10px 0;
-    height: 50%;
-}
-
-.addTask-btn:active, .removeTask-btn:active {
+.addTask-btn:active {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0);
 }
 
-.addTask-btn img, .removeTask-btn img  {
+.addTask-btn img {
     display: flex;
     position: relative;
     width: 60%;
@@ -79,7 +61,7 @@
     -webkit-user-drag: none;
 }
 
-.taskON {
+.taskWraper {
     display: flex;
     position: relative;
     width: 250px;
@@ -87,6 +69,34 @@
     background: white;
     border-right: solid 1px #c9c9c9;
     cursor: pointer;
+}
+
+.trashButton {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.trashButton img {
+    width: 25px;
+    height: auto;
+    opacity: 0.5;
+}
+
+.trashButton:hover {
+    background: #ffcbc7;
+}
+
+.taskON {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    word-break: break-word;
+    padding-left: 5px;
 }
 
 .taskON:hover {
@@ -97,11 +107,11 @@
     display: flex;
     position: relative;
     text-decoration: line-through;
-    width: 250px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
+    word-break: break-word;
     background: #dedede;
-    border-right: solid 1px #c9c9c9;
-    cursor: pointer;
+    padding-left: 5px;
 }
 
 .columnName {
@@ -135,12 +145,18 @@
 }
 
 .shownTaskText {
-    overflow: hidden;
     width: 100%;
     height: 100%;
     margin: 0;
-    padding-left: 5px;
     font-size: 20px;
+    word-break: inherit;
+    white-space: normal;
+    color: black;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .deleteTask {
@@ -159,8 +175,4 @@
     box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     z-index: 0;
-}
-
-.shownTaskText {
-    text-overflow: ellipsis;
 }

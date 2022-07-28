@@ -1,21 +1,33 @@
 import './weekDays.css'
 import './App.css'
+import React, {useState, useEffect} from "react";
 
-function Weekdays() {
-    const currentDate = new Date();
-    const oneJan = new Date(currentDate.getFullYear(),0,1);
-    const numberOfDays = Math.floor((currentDate - oneJan) / (24 * 60 * 60 * 1000));
-    const result = Math.ceil(( currentDate.getDay() + 1 + numberOfDays) / 7);
+function Weekdays({weekNumb}) {
+    const [currentDateState, setCurrentDateState] = useState(new Date());
 
-    const daysArray = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"]
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {  //assign interval to a variable to clear it.
+            setCurrentDateState(new Date());
+        }, 60000)
+
+        return () => clearInterval(intervalId); //This is important
+
+    }, [])
+
+    const oneJan = new Date(currentDateState.getFullYear(),0,1);
+    const numberOfDays = Math.floor((currentDateState - oneJan) / (24 * 60 * 60 * 1000));
+    const result = Math.ceil(( currentDateState.getDay() + 1 + numberOfDays) / 7);
+
+    const daysArray = ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"]
     const monthsArray = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"]
-    const monthNumb = currentDate.getMonth();
+    const monthNumb = currentDateState.getMonth();
     const monthName = monthsArray[monthNumb];
 
-    const weekDayNumb = currentDate.getDay() === 0 ? 7 : currentDate.getDay();
+    const weekDayNumb = currentDateState.getDay();
 
-    let clearArray = new Array(7);
-    clearArray.fill(0);
+    let pureArray = new Array(7);
+    pureArray.fill(0);
 
     return (
         <div className="weekDaysSideBar">
@@ -24,8 +36,8 @@ function Weekdays() {
                 <div className="monthName"><h1>{monthName}</h1></div>
 
                 {//Створення блоків з назвами днів тиждня.
-                    clearArray.map((x, i) =>
-                        <div className={i+1 === weekDayNumb ? "today" : "weekday"} id={i===0 ? "highest" : (i===6 ? "lowest" : undefined)}>
+                    pureArray.map((x, i) =>
+                        <div className={i === weekDayNumb ? "today" : "weekday"} id={i===0 ? "highest" : (i===6 ? "lowest" : undefined)}>
                             <h2>{daysArray[i]}</h2>
                         </div>
                     )

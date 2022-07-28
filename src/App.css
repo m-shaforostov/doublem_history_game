@@ -49,14 +49,6 @@ p {
   z-index: 4;
 }
 
-.mainWeekBlock {
-  margin-top: 90px;
-  display: flex;
-  position: relative;
-  width: 100%;
-  height: auto;
-}
-
 .content {
   height: 100%;
   width: 100%;
@@ -99,3 +91,4 @@ p {
   margin-top: 10px;
   margin-bottom: 20px;
 }
+

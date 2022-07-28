@@ -44,7 +44,7 @@
     justify-content: center;
 }
 
-.taskBody textarea {
+.taskEnter {
     height: 90%;
     width: 90%;
     font-size: 20px;
@@ -52,6 +52,7 @@
     border: #c20d00 solid 1px;
     resize: none;
     outline: none;
+    word-break: normal;
 }
 
 .taskFooter {

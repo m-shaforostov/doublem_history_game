@@ -4,6 +4,7 @@ import Intro from "./flagIntro";
 import Weekdays from "./weekDays";
 import CalendarContent from "./calendarContent"
 import ModalMenuWindow from "./modalWindow";
+import WeekBlocks from "./weekBlocks";
 import {useState} from "react";
 import logo from "./images/logo.png";
 import menu from "./images/menu.png";
@@ -32,10 +33,7 @@ function App() {
 
                 <div className="content">
                     <ModalMenuWindow active={modalActive} setActive={setModalActive}/>
-                    <div className="mainWeekBlock">
-                        <Weekdays/>
-                        <CalendarContent/>
-                    </div>
+                    <WeekBlocks/>
                     <div className="addWeek-block">
                         <div className="addWeek-btn" title='Add new week'><img src={plus} alt=""/></div>
                     </div>

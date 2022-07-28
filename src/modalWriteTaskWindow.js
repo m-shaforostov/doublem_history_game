@@ -4,10 +4,10 @@ import React, {useEffect, useState} from "react";
 
 function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCellText, funcSetCellValitidy}) {
     let taskText = document.getElementsByClassName("taskEnter");
-    const [text, setText] = useState(cellsObject.text[y][x]);
-
-    const validityButtonClass = !cellsObject.validity[y][x] ? "startedTask" : "endedTask";
-    const validityButtonTextName = !cellsObject.validity[y][x] ? "Завершити" : "Повернути";
+    const [text, setText] = useState(cellsObject[y].text[x]);
+    console.log(cellsObject[y].text[x]);
+    const validityButtonClass = !cellsObject[y].validity[x] ? "startedTask" : "endedTask";
+    const validityButtonTextName = !cellsObject[y].validity[x] ? "Завершити" : "Повернути";
 
     function changeFieldText(event) {
         setText(event.target.value);
@@ -17,6 +17,16 @@ function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCe
         textarea.focus();
     })
 
+    useEffect(() => {
+        const close = (e) => {
+            if(e.keyCode === 27){
+                setActive(false)
+            }
+        }
+        window.addEventListener('keydown', close)
+        return () => window.removeEventListener('keydown', close)
+    },[])
+
 
     return (
         <div className="modalTaskOverlay" id="menu" onClick={() => {setActive(false)}}>
@@ -25,11 +35,11 @@ function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCe
                     <h1>Введіть заплановане завдання</h1>
                 </div>
                 <div className="taskBody">
-                    <textarea className="taskEnter" value={text} onChange={changeFieldText} />
+                    <textarea rows="1"className="taskEnter" value={text} onChange={changeFieldText} />
                 </div>
                 <div className="taskFooter">
                     <div className="leftButtons">
-                        <button className={validityButtonClass} onClick={ () => { funcSetCellValitidy(x,y); setActive(false); } }>
+                        <button className={validityButtonClass} onClick={ () => { funcSetCellValitidy(); setActive(false); } }>
                             <h1>{validityButtonTextName}</h1>
                         </button>
                     </div>
