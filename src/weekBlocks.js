@@ -15,12 +15,16 @@ function WeekBlocks() {
     const numberOfDays = Math.floor((currentDateState - oneJan) / (24 * 60 * 60 * 1000));
     const weekNumb = Math.ceil(( currentDateState.getDay() + 1 + numberOfDays) / 7);
 
-    if (!localStorageCellsObject) {
-        localStorageCellsObject = {};
-        window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
-        setCellsObject(localStorageCellsObject);
+    function localStorageSave(value) {
+        setCellsObject(value);
+        window.localStorage.setItem('tasks_object', JSON.stringify(value));
     }
 
+    if (!localStorageCellsObject) {
+        localStorageCellsObject = {};
+        localStorageCellsObject[weekNumb] = {};
+        localStorageSave(localStorageCellsObject);
+    }
 
     return (
         <div className="weeksWraper">
@@ -28,7 +32,7 @@ function WeekBlocks() {
                 Object.keys(localStorageCellsObject).map((x, i) => //[x]
                     <div className="weekBlock" >
                         <Weekdays weekNumb={x}/>
-                        <CalendarContent cellsObject={cellsObject} setCellsObject={setCellsObject} localStorageCellsObject={localStorageCellsObject}/>
+                        <CalendarContent cellsObject={cellsObject} setCellsObject={setCellsObject} localStorageCellsObject={localStorageCellsObject} weekNumb={weekNumb}/>
                     </div>
                 )
             }

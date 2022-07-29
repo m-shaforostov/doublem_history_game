@@ -2,12 +2,15 @@ import './modalWritingTaskWindow.css'
 import './App.css'
 import React, {useEffect, useState} from "react";
 
-function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCellText, funcSetCellValitidy}) {
+function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCellText, funcSetCellValitidy, weekNumb}) {
     let taskText = document.getElementsByClassName("taskEnter");
-    const [text, setText] = useState(cellsObject[y].text[x]);
-    console.log(cellsObject[y].text[x]);
-    const validityButtonClass = !cellsObject[y].validity[x] ? "startedTask" : "endedTask";
-    const validityButtonTextName = !cellsObject[y].validity[x] ? "Завершити" : "Повернути";
+    const cellText = cellsObject[weekNumb][y].text[x];
+    const cellValidity = cellsObject[weekNumb][y].validity[x];
+
+    const [text, setText] = useState(cellText);
+
+    const validityButtonClass = !cellValidity ? "startedTask" : "endedTask";
+    const validityButtonTextName = !cellValidity ? "Завершити" : "Повернути";
 
     function changeFieldText(event) {
         setText(event.target.value);

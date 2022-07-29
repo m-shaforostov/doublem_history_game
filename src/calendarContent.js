@@ -8,7 +8,7 @@ import React, {useState} from "react";
 import ModalWritingTaskWindow from "./modalWriteTaskWindow"
 import _ from 'lodash'
 
-function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject}) {
+function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject, weekNumb}) {
 
     const currentDate = new Date();
     const currentWeekDayNumb = currentDate.getDay();
@@ -20,8 +20,9 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
     // const [taskValidity, setTaskValidity] = useState([])
 
     function refreshTasks () {
-        setCellsObject({});
-        window.localStorage.setItem('tasks_object', JSON.stringify({}));
+        localStorageCellsObject[weekNumb] = {};
+        window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
+        setCellsObject(localStorageCellsObject);
     }
 
     const setModalTextId = (xid,yid) => () => {  //Зберігає координати натиснутої комірки для подальшого порівняння з номерами текстових полів
@@ -31,21 +32,21 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
     }
 
     function funcSetCellText(text){
-        localStorageCellsObject[taskyId].text[taskxId] = text;
+        localStorageCellsObject[weekNumb][taskyId].text[taskxId] = text;
         window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
         setCellsObject(localStorageCellsObject);
     }
 
     function funcSetCellValitidy() {
-        localStorageCellsObject[taskyId].validity[taskxId] = !localStorageCellsObject[taskyId].validity[taskxId];
+        localStorageCellsObject[weekNumb][taskyId].validity[taskxId] = !localStorageCellsObject[weekNumb][taskyId].validity[taskxId];
         window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
         setCellsObject(localStorageCellsObject);
     }
 
     function Task({id, currentTaskDate}){
         currentTaskDate = currentTaskDate.slice(0, 10);
-        if (!localStorageCellsObject[`${currentTaskDate}`]){
-            localStorageCellsObject[`${currentTaskDate}`] = {
+        if (!localStorageCellsObject[weekNumb][currentTaskDate]){
+            localStorageCellsObject[weekNumb][currentTaskDate] = {
                 number: 1,
                 validity: [],
                 text: [],
@@ -55,17 +56,17 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
         }
 
         function deleteTask (x) {
-            if (localStorageCellsObject[currentTaskDate].number === 1) {
-                localStorageCellsObject[currentTaskDate].text[1] = undefined;
+            if (localStorageCellsObject[weekNumb][currentTaskDate].number === 1) {
+                localStorageCellsObject[weekNumb][currentTaskDate].text[1] = undefined;
                 window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
                 setCellsObject(localStorageCellsObject);
             }
             else {
-                const k = localStorageCellsObject[currentTaskDate].number - x;
+                const k = localStorageCellsObject[weekNumb][currentTaskDate].number - x;
                 for (let i = 0; i <= k; i++) {
-                    localStorageCellsObject[currentTaskDate].text[x + i] = localStorageCellsObject[currentTaskDate].text[x + i + 1];
+                    localStorageCellsObject[weekNumb][currentTaskDate].text[x + i] = localStorageCellsObject[weekNumb][currentTaskDate].text[x + i + 1];
                 }
-                localStorageCellsObject[currentTaskDate].number -= 1;
+                localStorageCellsObject[weekNumb][currentTaskDate].number -= 1;
                 window.localStorage.setItem('tasks_object', JSON.stringify(localStorageCellsObject));
                 setCellsObject(localStorageCellsObject);
             }
@@ -73,13 +74,13 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
 
         function increaseCellsNumb() {
             let a = _.cloneDeep(localStorageCellsObject);
-            a[currentTaskDate].number += 2;
+            a[weekNumb][currentTaskDate].number += 2;
             window.localStorage.setItem('tasks_object', JSON.stringify(a));
             setCellsObject(a);
         }
 
 
-        let a = new Array(localStorageCellsObject[currentTaskDate].number);
+        let a = new Array(localStorageCellsObject[weekNumb][currentTaskDate].number);
         a.fill(0);
 
         return(
@@ -87,8 +88,8 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
                 {
                     a.map((x, i) => //Створення текстових вікон для запису завдань. modal(x,y)Id - координати комірки
                         <div className={"taskWraper"}>
-                            <div className={!localStorageCellsObject[currentTaskDate].validity[i+1] ? "taskON" : "taskOFF"} onClick={setModalTextId(i+1, currentTaskDate)}>
-                                <p className={"shownTaskText"}>{localStorageCellsObject[currentTaskDate].text[i+1]}</p>
+                            <div className={!localStorageCellsObject[weekNumb][currentTaskDate].validity[i+1] ? "taskON" : "taskOFF"} onClick={setModalTextId(i+1, currentTaskDate)}>
+                                <p className={"shownTaskText"}>{localStorageCellsObject[weekNumb][currentTaskDate].text[i+1]}</p>
                             </div>
                             <div className={"trashButton"} onClick={() => {deleteTask(i+1)}}>
                                 <img src={trashButton} alt="" />
@@ -117,7 +118,7 @@ function CalendarContent({cellsObject, setCellsObject, localStorageCellsObject})
             <div className="tasksBlock">
                 {
                     modalActive &&
-                    <ModalWritingTaskWindow active={modalActive} setActive={setModalActive} x={taskxId} y={taskyId} cellsObject={cellsObject} funcSetCellText={funcSetCellText} funcSetCellValitidy={funcSetCellValitidy}/>
+                    <ModalWritingTaskWindow active={modalActive} setActive={setModalActive} x={taskxId} y={taskyId} cellsObject={cellsObject} funcSetCellText={funcSetCellText} funcSetCellValitidy={funcSetCellValitidy} weekNumb={weekNumb} />
                 }
 
                 {//Створення блоків для завдань.
