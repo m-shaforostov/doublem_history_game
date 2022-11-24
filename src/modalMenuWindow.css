@@ -39,13 +39,13 @@
     align-items: center;
     white-space: nowrap;
     color: black;
-    margin-left: 5px;
+    padding-left: 10px;
 }
 
 .link-btn:hover {
-    background-color: lightgray;
-    border-left: solid 5px dodgerblue;
-    margin: 0;
+    background-color: #ffcbc7;
+    border-left: solid 5px #c20d00;
+    padding-left: 5px;
 }
 
 .menuButtons {

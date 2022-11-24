@@ -32,6 +32,10 @@
     position: relative;
 }
 
+.logoText h1 {
+    color: white;
+}
+
 .logoImg {
     display: flex;
     position: relative;
@@ -39,11 +43,52 @@
     margin: 0 10px 0 30px;
 }
 
+.pageName {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100px;
+}
+
 .menu {
     display: flex;
     width: 48px;
-    height: 60%;
+    height: 100%;
     position: relative;
-    margin-right: 20px;
     cursor: pointer;
+}
+
+.addCard-btn {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.addCard-btn img {
+    display: flex;
+    position: relative;
+    width: 50px;
+    height: auto;
+    margin: auto;
+    cursor: pointer;
+    -webkit-user-drag: none;
+}
+
+
+.right-bnts {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 130px;
+    height: 60%;
+    margin-right: 30px;
 }

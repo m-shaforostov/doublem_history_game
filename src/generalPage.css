@@ -1,0 +1,40 @@
+.mainBlock {
+    margin-top: 80px;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height:calc(100vh - 80px);
+    justify-content: center;
+    align-items: center;
+}
+
+.choiceWindow {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: calc(((100vh * 4 / 5) - 80px)*3/4);
+    height: calc((100vh * 4 / 5) - 80px);
+    background: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.pageLink {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: auto;
+    height: 100px;
+    border-bottom: solid 1px #c9c9c9;
+    text-decoration: none;
+    color: black;
+}
+
+.pageLink:hover {
+    background-color: #ffcbc7;
+    border-left: solid 5px #c20d00;
+    border-right: solid 5px #c20d00;
+    box-sizing: content-box;
+    cursor: pointer;
+}

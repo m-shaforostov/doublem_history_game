@@ -2,7 +2,7 @@ import './modalWritingTaskWindow.css'
 import './App.css'
 import React, {useEffect, useState} from "react";
 
-function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCellText, funcSetCellValitidy, weekNumb}) {
+function ModalWritingTaskWindow({active, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy}) {
     let taskText = document.getElementsByClassName("taskEnter");
     const cellText = cellsObject[weekNumb][y].text[x];
     const cellValidity = cellsObject[weekNumb][y].validity[x];
@@ -38,7 +38,7 @@ function ModalWritingTaskWindow({active, setActive, x, y, cellsObject, funcSetCe
                     <h1>Введіть заплановане завдання</h1>
                 </div>
                 <div className="taskBody">
-                    <textarea rows="1"className="taskEnter" value={text} onChange={changeFieldText} />
+                    <textarea className="taskEnter" value={text} onChange={changeFieldText} />
                 </div>
                 <div className="taskFooter">
                     <div className="leftButtons">

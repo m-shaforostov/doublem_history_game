@@ -3,8 +3,30 @@
     position: fixed;
     width: 100%;
     height: 100%;
+    z-index: 8;
+    background: white;
+}
+
+.appearance {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
+    animation: ani 2.5s forwards;
+}
+
+@keyframes ani {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.introDivSecond {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     z-index: 8;
 }
 
@@ -16,6 +38,7 @@
     justify-content: center;
     align-items: center;
     z-index: 0;
+    transition: 2000ms;
 }
 
 .whiteBgFirst {

@@ -1,6 +1,7 @@
 html {
   height: 100%;
   width: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -15,6 +16,7 @@ img {
   position: relative;
   height: 100%;
 }
+
 h1 {
   margin: 0;
   display: flex;
@@ -28,6 +30,8 @@ a {
 }
 p {
   margin: 0;
+  display: flex;
+  position: relative;
 }
 
 .mainDiv {

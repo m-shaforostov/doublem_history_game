@@ -159,20 +159,3 @@
     overflow: hidden;
 }
 
-.deleteTask {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    right: 0;
-    top: 0;
-    color: dodgerblue;
-    height: 20px;
-    width: 20px;
-    border-radius: 50% 0 50% 50%;
-    margin: 0;
-    background: white;
-    box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    z-index: 0;
-}

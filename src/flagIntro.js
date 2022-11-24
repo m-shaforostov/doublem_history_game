@@ -13,6 +13,7 @@ function Intro() {
         await setFlag("flagImgSecond");
         await setText("actionTextSecond");
         window.setTimeout(() => {
+            setMain("introDivSecond");
             setBack("whiteBgSecond");
             setFlag("flagImgLast");
             setFlagBlock("flagBlockSecond")
@@ -22,12 +23,14 @@ function Intro() {
 
     return (
         <div className={main} onClick={start}>
-            <div className={flagBlock}>
-                <img src={flagImg} alt="" className={flag}/>
-            </div>
-            <div className={back}></div>
-            <div className={text}>
-                <p>[Клацніть, щоб продовжити]</p>
+            <div className={"appearance"}>
+                <div className={flagBlock}>
+                    <img src={flagImg} alt="" className={flag}/>
+                </div>
+                <div className={back}></div>
+                <div className={text}>
+                    <p>[Клацніть, щоб продовжити]</p>
+                </div>
             </div>
         </div>
     );
