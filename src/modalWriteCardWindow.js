@@ -1,11 +1,12 @@
 import './modalWriteCardWindow.css'
 import './App.css'
-import React, {useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
+import {CardGameContext} from "./context/CardGameContext";
 
 // {, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy} // 7
 
-function ModalWriteCardWindow({modalActive, setModalActive, modalEventText, setModalEventText, modalEventDate, setModalEventDate, localStorageCardsSave, modalEventYear, setModalEventYear, modalEventIndex, setModalEventIndex}) {
+function ModalWriteCardWindow({ localStorageCardsSave, }) {
     // let taskText = document.getElementsByClassName("taskEnter");
     // const cellText = cellsObject[weekNumb][y].text[x];
     // const cellValidity = cellsObject[weekNumb][y].validity[x];
@@ -22,10 +23,14 @@ function ModalWriteCardWindow({modalActive, setModalActive, modalEventText, setM
     //     const textarea = document.querySelector("textarea");
     //     textarea.focus();
     // })
-    //
-    useEffect(() => {
 
-    },[])
+    const {modalActive, setModalActive,
+        modalEventText, setModalEventText,
+        modalEventDate, setModalEventDate,
+        modalEventYear, setModalEventYear,
+        modalEventIndex, setModalEventIndex,} = useContext(CardGameContext);
+
+
 
     const handleKeyPress = (event) => {
         if(event.charCode === 27){

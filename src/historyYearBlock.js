@@ -1,12 +1,19 @@
 import './App.css';
 import './historyYearBlock.css';
 import plusWhite from "./images/plusWhite.png";
-import React, {useState} from "react";
+import React, { useContext, useState } from "react";
 import Weekdays from "./weekDays";
 import CalendarContent from "./calendarContent";
+import {CardGameContext} from "./context/CardGameContext";
 
-function HistoryYearBlock({modalActive, setModalActive, modalEventText, setModalEventText, modalEventDate, setModalEventDate,  year, cardsOdj, localStorageCardsSave, modalEventYear, setModalEventYear, modalEventIndex, setModalEventIndex}) {
+function HistoryYearBlock({ year, cardsOdj, localStorageCardsSave, }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
+
+    const {modalActive, setModalActive,
+        modalEventText, setModalEventText,
+        modalEventDate, setModalEventDate,
+        modalEventYear, setModalEventYear,
+        modalEventIndex, setModalEventIndex,} = useContext(CardGameContext);
 
     function openModalWindow(i) {
         setModalEventText(localStorageCardsObject[year][i].event);

@@ -1,18 +1,20 @@
 import './App.css';
 import './historyCards.css';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import HistoryYearBlock from "./historyYearBlock";
 import ModalWriteCardWindow from "./modalWriteCardWindow";
 import NoCardsExist from "./noCardsExist";
+import {CardGameContext} from "./context/CardGameContext";
 
 function HistoryCards() {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
-    const [modalActive, setModalActive] = useState(false);
-    const [modalEventText, setModalEventText] = useState("");
-    const [modalEventDate, setModalEventDate] = useState("");
-    const [modalEventYear, setModalEventYear] = useState(1);
-    const [modalEventIndex, setModalEventIndex] = useState(1);
+    const {modalActive, setModalActive,
+        modalEventText, setModalEventText,
+        modalEventDate, setModalEventDate,
+        modalEventYear, setModalEventYear,
+        modalEventIndex, setModalEventIndex,
+        cardsObject, setCardsOdject,} = useContext(CardGameContext);
 
     useEffect(() => {
         localStorageCardsSave(cardsOdj);
@@ -25,7 +27,7 @@ function HistoryCards() {
         }]
     };
 
-    const [cardsObject, setCardsOdject] = useState({})
+
 
     function localStorageCardsSave(value) {
         setCardsOdject(value);
@@ -36,12 +38,9 @@ function HistoryCards() {
 
     return (
         <div className={localStorageCardsObject ? "cardTable" : "noData cardTable"}>
-            <ModalWriteCardWindow modalActive={modalActive} setModalActive={setModalActive} modalEventText={modalEventText} setModalEventText={setModalEventText} modalEventDate={modalEventDate} setModalEventDate={setModalEventDate} localStorageCardsSave={localStorageCardsSave} modalEventYear={modalEventYear} setModalEventYear={setModalEventYear} modalEventIndex={modalEventIndex} setModalEventIndex={setModalEventIndex}/>
+            <ModalWriteCardWindow localStorageCardsSave={localStorageCardsSave} />
             {
-                localStorageCardsObject ? <HistoryYearBlock modalActive={modalActive} setModalActive={setModalActive} modalEventText={modalEventText} setModalEventText={setModalEventText} modalEventDate={modalEventDate} setModalEventDate={setModalEventDate} year={1939} cardsOdj={cardsOdj} localStorageCardsSave={localStorageCardsSave} modalEventYear={modalEventYear} setModalEventYear={setModalEventYear} modalEventIndex={modalEventIndex} setModalEventIndex={setModalEventIndex} /> : <NoCardsExist/>
-
-
-
+                localStorageCardsObject ? <HistoryYearBlock year={1939} cardsOdj={cardsOdj} localStorageCardsSave={localStorageCardsSave} /> : <NoCardsExist/>
             }
         </div>
     );
