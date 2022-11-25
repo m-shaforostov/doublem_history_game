@@ -7,9 +7,13 @@ import WeekBlocks from "./weekBlocks";
 import HistoryCards from "./historyCards";
 import { Routes, Route } from "react-router-dom";
 import whitePlus from "./images/WhitePlus.png";
-import React from "react";
+import React, {useContext} from "react";
+import {GeneralContext} from "./GeneralContext";
 
-function Header({modalActive, setModalActive}) {
+function Header({}) {
+
+    const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
+
     return (
         <div className="header">
             <div className="logo">
@@ -29,10 +33,10 @@ function Header({modalActive, setModalActive}) {
             </div>
             <div className="right-bnts">
                 <div className="addCard-btn" title='Add new card'>
-                    <img src={whitePlus} alt="" onClick={() => {setModalActive(true)}}/>
+                    <img src={whitePlus} alt="" onClick={() => {}}/>
                 </div>
                 <div className="menu" title='Menu'>
-                    <img id="menuIMG" src={menu} alt="" onClick={() => {modalActive===true ? setModalActive(false) : setModalActive(true)}}/>
+                    <img id="menuIMG" src={menu} alt="" onClick={() => {modalMenuActive===true ? setModalMenuActive(false) : setModalMenuActive(true)}}/>
                 </div>
             </div>
         </div>

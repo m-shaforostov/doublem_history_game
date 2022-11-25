@@ -9,29 +9,31 @@ import GeneralPage from "./generalPage";
 import Header from "./header";
 import HistoryCards from "./historyCards"
 import {CardGameContextProvider} from "./context/CardGameContext";
+import {GeneralContextProvider} from "./GeneralContext";
 
 
 function App() {
-    const [modalActive, setModalActive] = useState(false);
 
     return (
-        <CardGameContextProvider>
-            <div className="mainDiv">
-                {/*<Intro/>*/}
-                <div className="siteMainDiv">
-                    <Header modalActive={modalActive} setModalActive={setModalActive}/>
-                    <div className="content">
-                        <ModalMenuWindow active={modalActive} setActive={setModalActive}/>
+        <GeneralContextProvider>
+            <CardGameContextProvider>
+                <div className="mainDiv">
+                    {/*<Intro/>*/}
+                    <div className="siteMainDiv">
+                        <Header/>
+                        <div className="content">
+                            <ModalMenuWindow/>
 
-                        <Routes>
-                            <Route path='/' element={<GeneralPage/>} />
-                            <Route path='/Calendar' element={<WeekBlocks/>} />
-                            <Route path='/History' element={<HistoryCards/>} />
-                        </Routes>
+                            <Routes>
+                                <Route path='/' element={<GeneralPage/>} />
+                                <Route path='/Calendar' element={<WeekBlocks/>} />
+                                <Route path='/History' element={<HistoryCards/>} />
+                            </Routes>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </CardGameContextProvider>
+            </CardGameContextProvider>
+        </GeneralContextProvider>
     );
 }
 

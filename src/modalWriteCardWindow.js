@@ -6,7 +6,7 @@ import {CardGameContext} from "./context/CardGameContext";
 
 // {, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy} // 7
 
-function ModalWriteCardWindow({ localStorageCardsSave, }) {
+function ModalWriteCardWindow({}) {
     // let taskText = document.getElementsByClassName("taskEnter");
     // const cellText = cellsObject[weekNumb][y].text[x];
     // const cellValidity = cellsObject[weekNumb][y].validity[x];
@@ -28,7 +28,8 @@ function ModalWriteCardWindow({ localStorageCardsSave, }) {
         modalEventText, setModalEventText,
         modalEventDate, setModalEventDate,
         modalEventYear, setModalEventYear,
-        modalEventIndex, setModalEventIndex,} = useContext(CardGameContext);
+        modalEventIndex, setModalEventIndex,
+        localStorageCardsSave, } = useContext(CardGameContext);
 
 
 

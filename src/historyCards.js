@@ -9,12 +9,7 @@ import {CardGameContext} from "./context/CardGameContext";
 function HistoryCards() {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
-    const {modalActive, setModalActive,
-        modalEventText, setModalEventText,
-        modalEventDate, setModalEventDate,
-        modalEventYear, setModalEventYear,
-        modalEventIndex, setModalEventIndex,
-        cardsObject, setCardsOdject,} = useContext(CardGameContext);
+    const { localStorageCardsSave } = useContext(CardGameContext);
 
     useEffect(() => {
         localStorageCardsSave(cardsOdj);
@@ -27,20 +22,11 @@ function HistoryCards() {
         }]
     };
 
-
-
-    function localStorageCardsSave(value) {
-        setCardsOdject(value);
-        window.localStorage.setItem('cards_object', JSON.stringify(value));
-    }
-
-    // localStorageCardsSave(cardsOdj);
-
     return (
         <div className={localStorageCardsObject ? "cardTable" : "noData cardTable"}>
-            <ModalWriteCardWindow localStorageCardsSave={localStorageCardsSave} />
+            <ModalWriteCardWindow />
             {
-                localStorageCardsObject ? <HistoryYearBlock year={1939} cardsOdj={cardsOdj} localStorageCardsSave={localStorageCardsSave} /> : <NoCardsExist/>
+                localStorageCardsObject ? <HistoryYearBlock year={1939} cardsOdj={cardsOdj}/> : <NoCardsExist/>
             }
         </div>
     );

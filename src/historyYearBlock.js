@@ -6,14 +6,15 @@ import Weekdays from "./weekDays";
 import CalendarContent from "./calendarContent";
 import {CardGameContext} from "./context/CardGameContext";
 
-function HistoryYearBlock({ year, cardsOdj, localStorageCardsSave, }) {
+function HistoryYearBlock({ year, cardsOdj, }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
     const {modalActive, setModalActive,
         modalEventText, setModalEventText,
         modalEventDate, setModalEventDate,
         modalEventYear, setModalEventYear,
-        modalEventIndex, setModalEventIndex,} = useContext(CardGameContext);
+        modalEventIndex, setModalEventIndex,
+        localStorageCardsSave, } = useContext(CardGameContext);
 
     function openModalWindow(i) {
         setModalEventText(localStorageCardsObject[year][i].event);
