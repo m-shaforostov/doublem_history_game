@@ -9,10 +9,14 @@ import { Routes, Route } from "react-router-dom";
 import whitePlus from "./images/WhitePlus.png";
 import React, {useContext} from "react";
 import {GeneralContext} from "./GeneralContext";
+import {CardGameContext} from "./context/CardGameContext";
 
 function Header({}) {
 
     const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
+    const { openEmptyCardEditing } = useContext(CardGameContext);
+
+
 
     return (
         <div className="header">
@@ -33,7 +37,7 @@ function Header({}) {
             </div>
             <div className="right-bnts">
                 <div className="addCard-btn" title='Add new card'>
-                    <img src={whitePlus} alt="" onClick={() => {}}/>
+                    <img src={whitePlus} alt="" onClick={() => {openEmptyCardEditing()}}/>
                 </div>
                 <div className="menu" title='Menu'>
                     <img id="menuIMG" src={menu} alt="" onClick={() => {modalMenuActive===true ? setModalMenuActive(false) : setModalMenuActive(true)}}/>

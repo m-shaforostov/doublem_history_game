@@ -24,20 +24,6 @@ function ModalWriteCardWindow({}) {
     //     textarea.focus();
     // })
 
-    const {modalActive, setModalActive,
-        modalEventText, setModalEventText,
-        modalEventDate, setModalEventDate,
-        modalEventYear, setModalEventYear,
-        modalEventIndex, setModalEventIndex,
-        localStorageCardsSave, } = useContext(CardGameContext);
-
-
-
-    const handleKeyPress = (event) => {
-        if(event.charCode === 27){
-            alert('enter press here! ')
-        }
-    }
 
     // const [textEvent, setTextEvent] = useState("");
     // const [textDate, setTextDate] = useState("");
@@ -46,26 +32,100 @@ function ModalWriteCardWindow({}) {
     //     setTextEvent(modalEventText);
     //     setTextDate(modalEventDate);
     // }, [])
+
+    const {modalCardActive, setModalCardActive,
+        modalCardEventText, setModalCardEventText,
+        modalCardEventDate, setModalCardEventDate,
+        modalCardEventYear, setModalCardEventYear,
+        modalCardEventIndex, setModalCardEventIndex,
+        localStorageCardsSave, } = useContext(CardGameContext);
+
+    const [ errorTextLabel, setErrorTextLabel ] = useState("errorLabelOff");
+    const [ errorDateLabel, setErrorDateLabel ] = useState("errorLabelOff");
+
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
+
+    const handleKeyPress = (event) => {
+        if (event.charCode === 27) {
+            alert('enter press here! ')
+        }
+    }
+
     function changeFieldTextEvent(event) {
-        setModalEventText(event.target.value);
+        setModalCardEventText(event.target.value);
     }
 
     function changeFieldTextDate(event) {
-        setModalEventDate(event.target.value);
+        setModalCardEventDate(event.target.value);
+    }
+
+    function saveCardText(){
+        const year = modalCardEventDate.slice(-4);
+        console.log(modalCardEventYear);
+        console.log(year);
+        if (!modalCardEventYear){
+            let index;
+            if (localStorageCardsObject[year]){
+                index = localStorageCardsObject[year].length();
+                localStorageCardsObject[year][index].event = modalCardEventText;
+                localStorageCardsObject[year][index].date = modalCardEventDate;
+            }
+            else {
+                index = '0';
+                localStorageCardsObject[year] = [];
+                localStorageCardsObject[year][index] = {};
+                localStorageCardsObject[year][index].event = modalCardEventText;
+                localStorageCardsObject[year][index].date = modalCardEventDate;
+            }
+        }
+        else if (modalCardEventYear == year){
+            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
+            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
+        }
+        // else {
+        //     setModalCardActive(false);
+        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
+        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
+        //     localStorageCardsSave(localStorageCardsObject);
+        // }
+        localStorageCardsSave(localStorageCardsObject);
+        setModalCardActive(false);
     }
 
     function submitCardText(){
-        localStorageCardsObject[modalEventYear][modalEventIndex].event = modalEventText;
-        localStorageCardsObject[modalEventYear][modalEventIndex].date = modalEventDate;
-        localStorageCardsSave(localStorageCardsObject);
+        const a =checkCardTextCorrectness(modalCardEventText);
+        const b = checkCardDateCorrectness(modalCardEventDate);
+        setErrorDateLabel("errorLabelOff");
+        setErrorTextLabel("errorLabelOff");
+        if (a && b){
+            saveCardText();
+        }
+        else {
+            if (!a) {
+                setErrorTextLabel("errorLabelOn1");
+                setTimeout(() => setErrorTextLabel("errorLabelOn2"), 50);
+            }
+            if (!b) {
+                setErrorDateLabel("errorLabelOn1");
+                setTimeout(() => setErrorDateLabel("errorLabelOn2"), 50);
+            }
+        }
+    }
+
+    function checkCardDateCorrectness(string){
+        const regexDate = /^[0-9]{2}\.[0-9]{2}\.[0-9]{4} ?$/;
+        return string.match(regexDate);
+    }
+
+    function checkCardTextCorrectness(string){
+        const regexText = /.+/;
+        return string.match(regexText);
     }
 
     return (
-        modalActive &&
-        <div className="modalCardOverlay" id="menu" onClick={() => {setModalActive(false)}}>
-            {/*onClick={() => {setActive(false)}}*/}
+        modalCardActive &&
+        <div className="modalCardOverlay" id="menu" onClick={() => {setModalCardActive(false)}}>
             <div className="modalCardContent" onKeyPress={handleKeyPress} onClick={(event) => {event.stopPropagation()}}>
                 <div className="cardHeader">
                     <h1>Заповніть нову картку</h1>
@@ -73,21 +133,23 @@ function ModalWriteCardWindow({}) {
                 <div className="cardBody">
                     <form action="">
                         <label htmlFor="getEvent">Подія:</label>
-                        <input className="cardEnter" id="getEvent" value={modalEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="День народження Адміна" />
+                        <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="День народження Адміна" />
+                        <label htmlFor="getDate" className={errorTextLabel}>*Поле має містити текст*</label>
                     </form>
                     <form action="">
                         <label htmlFor="getDate">Дата:</label>
-                        <input className="cardEnter" id="getDate" value={modalEventDate} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
+                        <input className="cardEnter" id="getDate" value={modalCardEventDate} autoComplete={"off"} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
+                        <label htmlFor="getDate" className={errorDateLabel}>*Дата введена некоректно*</label>
                     </form>
                 </div>
                 <div className="cardFooter">
                     <div className="leftButton">
-                        <button className="cancel" onClick={() => {setModalActive(false)}}>
+                        <button className="cancel" onClick={() => {setModalCardActive(false)}}>
                             <h1>Відмінити</h1>
                         </button>
                     </div>
                     <div className="rightButton">
-                        <button className="save" onClick={() => {setModalActive(false); submitCardText()}}>
+                        <button className="save" onClick={() => {submitCardText()}}>
                             <h1>Зберегти</h1>
                         </button>
                     </div>

@@ -18,7 +18,7 @@ function HistoryCards() {
     const cardsOdj = {
         1939: [{
             event: "Пакт Молотова-Ріббентропа",
-            date: "23 серпня 1939р",
+            date: "23.08.1939",
         }]
     };
 

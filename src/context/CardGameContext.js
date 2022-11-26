@@ -5,11 +5,11 @@ export const CardGameContext = createContext({});
 
 export const CardGameContextProvider = ({children}) => {
 
-    const [modalActive, setModalActive] = useState(false);
-    const [modalEventText, setModalEventText] = useState("");
-    const [modalEventDate, setModalEventDate] = useState("");
-    const [modalEventYear, setModalEventYear] = useState(1);
-    const [modalEventIndex, setModalEventIndex] = useState(1);
+    const [modalCardActive, setModalCardActive] = useState(false);
+    const [modalCardEventText, setModalCardEventText] = useState("");
+    const [modalCardEventDate, setModalCardEventDate] = useState("");
+    const [modalCardEventYear, setModalCardEventYear] = useState(1);
+    const [modalCardEventIndex, setModalCardEventIndex] = useState(1);
     const [cardsObject, setCardsOdject] = useState({})
 
     function localStorageCardsSave(value) {
@@ -17,20 +17,28 @@ export const CardGameContextProvider = ({children}) => {
         window.localStorage.setItem('cards_object', JSON.stringify(value));
     }
 
+    function openEmptyCardEditing() {
+        setModalCardEventText("");
+        setModalCardEventDate("");
+        setModalCardEventYear(0);
+        setModalCardActive(true);
+    }
+
     const value = {
-        modalActive,
-        setModalActive,
-        modalEventText,
-        setModalEventText,
-        modalEventDate,
-        setModalEventDate,
-        modalEventYear,
-        setModalEventYear,
-        modalEventIndex,
-        setModalEventIndex,
+        modalCardActive,
+        setModalCardActive,
+        modalCardEventText,
+        setModalCardEventText,
+        modalCardEventDate,
+        setModalCardEventDate,
+        modalCardEventYear,
+        setModalCardEventYear,
+        modalCardEventIndex,
+        setModalCardEventIndex,
         cardsObject,
         setCardsOdject,
         localStorageCardsSave,
+        openEmptyCardEditing,
     };
 
     return <CardGameContext.Provider value={value} > {children} </CardGameContext.Provider>

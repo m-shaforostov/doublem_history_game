@@ -9,19 +9,20 @@ import {CardGameContext} from "./context/CardGameContext";
 function HistoryYearBlock({ year, cardsOdj, }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
-    const {modalActive, setModalActive,
-        modalEventText, setModalEventText,
-        modalEventDate, setModalEventDate,
-        modalEventYear, setModalEventYear,
-        modalEventIndex, setModalEventIndex,
+    const {modalCardActive, setModalCardActive,
+        modalCardEventText, setModalCardEventText,
+        modalCardEventDate, setModalCardEventDate,
+        modalCardEventYear, setModalCardEventYear,
+        modalCardEventIndex, setModalCardEventIndex,
         localStorageCardsSave, } = useContext(CardGameContext);
 
-    function openModalWindow(i) {
-        setModalEventText(localStorageCardsObject[year][i].event);
-        setModalEventDate(localStorageCardsObject[year][i].date);
-        setModalEventYear(year);
-        setModalEventIndex(i);
-        setModalActive(true);
+    async function openCardEditing(i) {
+        setModalCardEventText(localStorageCardsObject[year][i].event);
+        setModalCardEventDate(localStorageCardsObject[year][i].date);
+        setModalCardEventYear(year);
+        setModalCardEventIndex(i);
+        console.log(modalCardEventYear, year);
+        setModalCardActive(true);
     }
 
     return (
@@ -33,7 +34,7 @@ function HistoryYearBlock({ year, cardsOdj, }) {
                 {
                     localStorageCardsObject &&
                     Object.keys(localStorageCardsObject[year]).map((x, i) => //[x]
-                        <div className="basicCard card" onClick={() => {openModalWindow(i)}}>
+                        <div className="basicCard card" onClick={() => {openCardEditing(i)}}>
                             <p>{localStorageCardsObject[year][i].event}</p>
                             <b><p>{localStorageCardsObject[year][i].date}</p></b>
                         </div>
