@@ -46,9 +46,21 @@ function ModalWriteCardWindow({}) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
 
-    const handleKeyPress = (event) => {
-        if (event.charCode === 27) {
+    useEffect(() => {
+        document.addEventListener('keypress', (event) => {
+            const keyName = event.key;
+            console.log(modalCardActive)
+            if (keyName === "Enter"){
+                checkModalActive();
+            }
+        });
+    }, [])
+
+    function checkModalActive() {
+        console.log(modalCardActive)
+        if (modalCardActive === true){
             alert('enter press here! ')
+            submitCardText();
         }
     }
 
@@ -62,22 +74,25 @@ function ModalWriteCardWindow({}) {
 
     function saveCardText(){
         const year = modalCardEventDate.slice(-4);
-        console.log(modalCardEventYear);
-        console.log(year);
         if (!modalCardEventYear){
-            let index;
-            if (localStorageCardsObject[year]){
-                index = localStorageCardsObject[year].length();
-                localStorageCardsObject[year][index].event = modalCardEventText;
-                localStorageCardsObject[year][index].date = modalCardEventDate;
+            let index = -1;
+            if (!localStorageCardsObject){
+                localStorageCardsObject = {};
+                index = 0;
+                localStorageCardsObject[year] = [];
             }
             else {
-                index = '0';
-                localStorageCardsObject[year] = [];
-                localStorageCardsObject[year][index] = {};
-                localStorageCardsObject[year][index].event = modalCardEventText;
-                localStorageCardsObject[year][index].date = modalCardEventDate;
+                if (localStorageCardsObject[year]){
+                    index = localStorageCardsObject[year].length;
+                }
+                else {
+                    index = 0;
+                    localStorageCardsObject[year] = [];
+                }
             }
+            localStorageCardsObject[year][index] = {};
+            localStorageCardsObject[year][index].event = modalCardEventText;
+            localStorageCardsObject[year][index].date = modalCardEventDate;
         }
         else if (modalCardEventYear == year){
             localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
@@ -126,7 +141,7 @@ function ModalWriteCardWindow({}) {
     return (
         modalCardActive &&
         <div className="modalCardOverlay" id="menu" onClick={() => {setModalCardActive(false)}}>
-            <div className="modalCardContent" onKeyPress={handleKeyPress} onClick={(event) => {event.stopPropagation()}}>
+            <div className="modalCardContent" onClick={(event) => {event.stopPropagation()}}>
                 <div className="cardHeader">
                     <h1>Заповніть нову картку</h1>
                 </div>
@@ -134,7 +149,7 @@ function ModalWriteCardWindow({}) {
                     <form action="">
                         <label htmlFor="getEvent">Подія:</label>
                         <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="День народження Адміна" />
-                        <label htmlFor="getDate" className={errorTextLabel}>*Поле має містити текст*</label>
+                        <label htmlFor="getEvent" className={errorTextLabel}>*Поле має містити текст*</label>
                     </form>
                     <form action="">
                         <label htmlFor="getDate">Дата:</label>
