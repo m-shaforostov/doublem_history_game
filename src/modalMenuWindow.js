@@ -2,7 +2,7 @@ import './modalMenuWindow.css'
 import './App.css'
 import { Link } from "react-router-dom";
 import {useContext} from "react";
-import {GeneralContext} from "./GeneralContext";
+import {GeneralContext} from "./context/GeneralContext";
 
 function ModalMenuWindow({}) {
 

@@ -6,6 +6,7 @@ export const CardGameContext = createContext({});
 export const CardGameContextProvider = ({children}) => {
 
     const [modalCardActive, setModalCardActive] = useState(false);
+    const [selectionTicksActive, setSelectionTicksActive] = useState(false);
     const [modalCardEventText, setModalCardEventText] = useState("");
     const [modalCardEventDate, setModalCardEventDate] = useState("");
     const [modalCardEventYear, setModalCardEventYear] = useState(1);
@@ -27,6 +28,8 @@ export const CardGameContextProvider = ({children}) => {
     const value = {
         modalCardActive,
         setModalCardActive,
+        selectionTicksActive,
+        setSelectionTicksActive,
         modalCardEventText,
         setModalCardEventText,
         modalCardEventDate,

@@ -74,62 +74,76 @@ function ModalWriteCardWindow({}) {
 
     function saveCardText(){
         const year = modalCardEventDate.slice(-4);
-        if (!modalCardEventYear){
-            let index = -1;
-            if (!localStorageCardsObject){
-                localStorageCardsObject = {};
-                index = 0;
-                localStorageCardsObject[year] = [];
-            }
-            else {
-                if (localStorageCardsObject[year]){
-                    index = localStorageCardsObject[year].length;
-                }
-                else {
-                    index = 0;
-                    localStorageCardsObject[year] = [];
-                }
-            }
-            localStorageCardsObject[year][index] = {};
-            localStorageCardsObject[year][index].event = modalCardEventText;
-            localStorageCardsObject[year][index].date = modalCardEventDate;
+        if (modalCardEventYear){ //if user creates a new card
+
         }
-        else if (modalCardEventYear == year){
-            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
-            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
+
+        let index;
+        if (!localStorageCardsObject){
+            localStorageCardsObject = {};
+            localStorageCardsObject[year] = [];
         }
-        // else {
-        //     setModalCardActive(false);
+        else if (!localStorageCardsObject[year]){
+            localStorageCardsObject[year] = [];
+        }
+        index = localStorageCardsObject[year].length;
+        localStorageCardsObject[year][index] = {};
+        localStorageCardsObject[year][index].event = modalCardEventText;
+        localStorageCardsObject[year][index].date = modalCardEventDate;
+
+        // else if (modalCardEventYear == year){//if user opens a card and saves it without changing its year
+        //     console.log(modalCardEventYear, year)
         //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
         //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
-        //     localStorageCardsSave(localStorageCardsObject);
+        // }
+        // else {//if user opens a card and changes its year
+        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
+        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
         // }
         localStorageCardsSave(localStorageCardsObject);
         setModalCardActive(false);
     }
 
-    function submitCardText(){
-        const a =checkCardTextCorrectness(modalCardEventText);
-        const b = checkCardDateCorrectness(modalCardEventDate);
+    function cancelEditing() {
         setErrorDateLabel("errorLabelOff");
         setErrorTextLabel("errorLabelOff");
+        setModalCardActive(false);
+    }
+
+    function submitCardText(){
+        const a = checkCardTextCorrectness(modalCardEventText);
+        const b = checkCardDateCorrectness(modalCardEventDate);
         if (a && b){
             saveCardText();
+            cancelEditing();
         }
         else {
             if (!a) {
-                setErrorTextLabel("errorLabelOn1");
-                setTimeout(() => setErrorTextLabel("errorLabelOn2"), 50);
+                replayAnimation(setErrorTextLabel);
             }
+            else {
+                setErrorTextLabel("errorLabelOff");
+            }
+
             if (!b) {
-                setErrorDateLabel("errorLabelOn1");
-                setTimeout(() => setErrorDateLabel("errorLabelOn2"), 50);
+                replayAnimation(setErrorDateLabel);
+            }
+            else {
+                setErrorDateLabel("errorLabelOff");
             }
         }
     }
 
+    function replayAnimation(func){
+        func("errorLabelOn");
+        setTimeout(function(){
+            func("errorLabelOn animation");
+        },10);
+    }
+
     function checkCardDateCorrectness(string){
-        const regexDate = /^[0-9]{2}\.[0-9]{2}\.[0-9]{4} ?$/;
+        const regexDate = /^([0-9]{2}\.)?([0-9]{2}\.)?[0-9]{4} ?$/;
+        const regexDate1 = /.+/;
         return string.match(regexDate);
     }
 
@@ -140,7 +154,7 @@ function ModalWriteCardWindow({}) {
 
     return (
         modalCardActive &&
-        <div className="modalCardOverlay" id="menu" onClick={() => {setModalCardActive(false)}}>
+        <div className="modalCardOverlay" id="menu" onClick={() => {cancelEditing()}}>
             <div className="modalCardContent" onClick={(event) => {event.stopPropagation()}}>
                 <div className="cardHeader">
                     <h1>Заповніть нову картку</h1>
@@ -159,7 +173,7 @@ function ModalWriteCardWindow({}) {
                 </div>
                 <div className="cardFooter">
                     <div className="leftButton">
-                        <button className="cancel" onClick={() => {setModalCardActive(false)}}>
+                        <button className="cancel" onClick={() => {cancelEditing()}}>
                             <h1>Відмінити</h1>
                         </button>
                     </div>

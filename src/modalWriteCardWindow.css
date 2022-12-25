@@ -65,22 +65,19 @@
     padding-left: 5px;
 }
 
-.errorLabelOn1 {
-    padding-left: 5px;
+.errorLabelOn {
     font-size: 15px;
-    display: flex;
     color: #c20d00;
-}
-
-.errorLabelOn2 {
-    font-size: 15px;
-    display: flex;
-    color: #c20d00;
-    transition: 50ms;
+    position: relative;
 }
 
 .errorLabelOff {
     display: none;
+}
+
+.animation {
+    animation-name: errorLabelMovement;
+    animation-duration: 250ms;
 }
 
 .cardFooter {
@@ -146,5 +143,20 @@ button h1 {
     display: flex;
     margin-left: 25px;
     width: 100px;
+}
+
+@keyframes errorLabelMovement{
+    0%{
+        left: 0;
+    }
+    25%{
+        left: -5px;
+    }
+    75%{
+        left: 5px;
+    }
+    100%{
+        left: 0;
+    }
 }
 

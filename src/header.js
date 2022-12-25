@@ -6,15 +6,16 @@ import GeneralPage from "./generalPage";
 import WeekBlocks from "./weekBlocks";
 import HistoryCards from "./historyCards";
 import { Routes, Route } from "react-router-dom";
+import whitePlay from "./images/play.png";
 import whitePlus from "./images/WhitePlus.png";
 import React, {useContext} from "react";
-import {GeneralContext} from "./GeneralContext";
+import {GeneralContext} from "./context/GeneralContext";
 import {CardGameContext} from "./context/CardGameContext";
 
 function Header({}) {
 
     const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
-    const { openEmptyCardEditing } = useContext(CardGameContext);
+    const { openEmptyCardEditing, selectionTicksActive, setSelectionTicksActive } = useContext(CardGameContext);
 
 
 
@@ -36,6 +37,9 @@ function Header({}) {
                 </Routes>
             </div>
             <div className="right-bnts">
+                <div className="playGame-btn" title='Add new card'>
+                    <img src={whitePlay} alt="" onClick={() => {openEmptyCardEditing()}}/>
+                </div>
                 <div className="addCard-btn" title='Add new card'>
                     <img src={whitePlus} alt="" onClick={() => {openEmptyCardEditing()}}/>
                 </div>

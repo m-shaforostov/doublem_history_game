@@ -9,7 +9,7 @@ import GeneralPage from "./generalPage";
 import Header from "./header";
 import HistoryCards from "./historyCards"
 import {CardGameContextProvider} from "./context/CardGameContext";
-import {GeneralContextProvider} from "./GeneralContext";
+import {GeneralContextProvider} from "./context/GeneralContext";
 
 
 function App() {
