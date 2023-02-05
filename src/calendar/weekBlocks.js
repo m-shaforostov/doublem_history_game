@@ -1,9 +1,9 @@
 import './weekBlocks.css';
-import './App.css';
+import '../App.css';
 import Weekdays from "./weekDays";
 import CalendarContent from "./calendarContent";
 import React, {useState, useEffect} from "react";
-import plus from "./images/plus.png";
+import plus from "../images/plus.png";
 import _ from "lodash";
 
 function WeekBlocks() {

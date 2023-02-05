@@ -4,10 +4,10 @@ import {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import Intro from "./flagIntro";
 import ModalMenuWindow from "./modalMenuWindow";
-import WeekBlocks from "./weekBlocks";
+import WeekBlocks from "./calendar/weekBlocks";
 import GeneralPage from "./generalPage";
 import Header from "./header";
-import HistoryCards from "./historyCards"
+import HistoryCards from "./history/historyCards"
 import {CardGameContextProvider} from "./context/CardGameContext";
 import {GeneralContextProvider} from "./context/GeneralContext";
 

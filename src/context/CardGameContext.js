@@ -25,6 +25,13 @@ export const CardGameContextProvider = ({children}) => {
         setModalCardActive(true);
     }
 
+    function appearSelectionTicks(){
+        if (cardsObject){
+            const a = selectionTicksActive;
+            setSelectionTicksActive(!a);//set true!!!!!
+        }
+    }
+
     const value = {
         modalCardActive,
         setModalCardActive,
@@ -42,6 +49,7 @@ export const CardGameContextProvider = ({children}) => {
         setCardsOdject,
         localStorageCardsSave,
         openEmptyCardEditing,
+        appearSelectionTicks,
     };
 
     return <CardGameContext.Provider value={value} > {children} </CardGameContext.Provider>

@@ -3,8 +3,8 @@ import './header.css';
 import logo from "./images/logo.png";
 import menu from "./images/menu.png";
 import GeneralPage from "./generalPage";
-import WeekBlocks from "./weekBlocks";
-import HistoryCards from "./historyCards";
+import WeekBlocks from "./calendar/weekBlocks";
+import HistoryCards from "./history/historyCards";
 import { Routes, Route } from "react-router-dom";
 import whitePlay from "./images/play.png";
 import whitePlus from "./images/WhitePlus.png";
@@ -15,7 +15,7 @@ import {CardGameContext} from "./context/CardGameContext";
 function Header({}) {
 
     const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
-    const { openEmptyCardEditing, selectionTicksActive, setSelectionTicksActive } = useContext(CardGameContext);
+    const { openEmptyCardEditing, selectionTicksActive, setSelectionTicksActive, appearSelectionTicks } = useContext(CardGameContext);
 
 
 
@@ -37,12 +37,20 @@ function Header({}) {
                 </Routes>
             </div>
             <div className="right-bnts">
-                <div className="playGame-btn" title='Add new card'>
-                    <img src={whitePlay} alt="" onClick={() => {openEmptyCardEditing()}}/>
-                </div>
-                <div className="addCard-btn" title='Add new card'>
-                    <img src={whitePlus} alt="" onClick={() => {openEmptyCardEditing()}}/>
-                </div>
+                <Routes>
+                    <Route path='/History' element={
+                        <div className="playGame-btn" title='Add new card'>
+                            <img src={whitePlay} alt="" onClick={() => {appearSelectionTicks()}}/>
+                        </div>
+                    }/>
+                </Routes>
+                <Routes>
+                    <Route path='/History' element={
+                        <div className="addCard-btn" title='Add new card'>
+                            <img src={whitePlus} alt="" onClick={() => {openEmptyCardEditing()}}/>
+                        </div>
+                    } />
+                </Routes>
                 <div className="menu" title='Menu'>
                     <img id="menuIMG" src={menu} alt="" onClick={() => {modalMenuActive===true ? setModalMenuActive(false) : setModalMenuActive(true)}}/>
                 </div>

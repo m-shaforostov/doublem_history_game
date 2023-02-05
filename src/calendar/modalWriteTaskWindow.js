@@ -1,5 +1,5 @@
 import './modalWritingTaskWindow.css'
-import './App.css'
+import '../App.css'
 import React, {useEffect, useState} from "react";
 
 function ModalWritingTaskWindow({active, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy}) {

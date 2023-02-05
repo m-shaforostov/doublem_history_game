@@ -1,9 +1,9 @@
-import './App.css';
+import '../App.css';
 import './historyCards.css';
 import React, {useContext, useEffect, useState} from "react";
 import ModalWriteCardWindow from "./modalWriteCardWindow";
 import NoCardsExist from "./noCardsExist";
-import {CardGameContext} from "./context/CardGameContext";
+import {CardGameContext} from "../context/CardGameContext";
 import HistoryInventory from "./historyInventory";
 
 function HistoryCards() {

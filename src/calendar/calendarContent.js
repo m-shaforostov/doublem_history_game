@@ -1,9 +1,9 @@
 import './calendarContent.css';
 import './weekDays.css'
-import './App.css'
-import plusWhite from './images/plusWhite.png'
-import trashButton from './images/trash-can-icon-png.jpg'
-import refresh from './images/unnamed.png'
+import '../App.css'
+import plusWhite from '../images/plusWhite.png'
+import trashButton from '../images/trash-can-icon-png.jpg'
+import refresh from '../images/unnamed.png'
 import React, {useState} from "react";
 import ModalWritingTaskWindow from "./modalWriteTaskWindow"
 import _ from 'lodash'

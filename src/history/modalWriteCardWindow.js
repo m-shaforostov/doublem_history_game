@@ -1,12 +1,12 @@
 import './modalWriteCardWindow.css'
-import './App.css'
+import '../App.css'
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import {CardGameContext} from "./context/CardGameContext";
+import {CardGameContext} from "../context/CardGameContext";
 
 // {, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy} // 7
 
-function ModalWriteCardWindow({}) {
+function ModalWriteCardWindow() {
     // let taskText = document.getElementsByClassName("taskEnter");
     // const cellText = cellsObject[weekNumb][y].text[x];
     // const cellValidity = cellsObject[weekNumb][y].validity[x];
@@ -33,7 +33,7 @@ function ModalWriteCardWindow({}) {
     //     setTextDate(modalEventDate);
     // }, [])
 
-    const {modalCardActive, setModalCardActive,
+    const { modalCardActive, setModalCardActive,
         modalCardEventText, setModalCardEventText,
         modalCardEventDate, setModalCardEventDate,
         modalCardEventYear, setModalCardEventYear,
@@ -47,22 +47,22 @@ function ModalWriteCardWindow({}) {
 
 
     useEffect(() => {
-        document.addEventListener('keypress', (event) => {
-            const keyName = event.key;
-            console.log(modalCardActive)
-            if (keyName === "Enter"){
-                checkModalActive();
+        const listener = event => {
+            if (event.code === "Enter" || event.code === "NumpadEnter") {
+                event.preventDefault();
+                if (modalCardActive){
+                    submitCardText();
+                }
             }
-        });
-    }, [])
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, [modalCardActive, modalCardEventText, modalCardEventDate])
 
-    function checkModalActive() {
-        console.log(modalCardActive)
-        if (modalCardActive === true){
-            alert('enter press here! ')
-            submitCardText();
-        }
-    }
+
+
 
     function changeFieldTextEvent(event) {
         setModalCardEventText(event.target.value);
@@ -74,11 +74,31 @@ function ModalWriteCardWindow({}) {
 
     function saveCardText(){
         const year = modalCardEventDate.slice(-4);
-        if (modalCardEventYear){ //if user creates a new card
-
-        }
-
         let index;
+        if (!modalCardEventYear){ //if user creates a new card
+            saveValueAsNewCard(year, index);
+        }
+        else if (modalCardEventYear == year){//if user opens a card and saves it without changing its year
+            console.log(modalCardEventYear, year)
+            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
+            localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
+        }
+        else {//if user opens a card and changes its year
+            if (localStorageCardsObject[modalCardEventYear].length === 1){
+                localStorageCardsObject = localStorageCardsObject.filter()
+            }
+            else{
+                // localStorageCardsObject[modalCardEventYear].splice(modalCardEventIndex, 1);
+                localStorageCardsObject[modalCardEventYear] = localStorageCardsObject[modalCardEventYear].filter(x => x.date != modalCardEventYear)
+            }
+
+            saveValueAsNewCard(year, index);
+        }
+        localStorageCardsSave(localStorageCardsObject);
+        setModalCardActive(false);
+    }
+
+    function saveValueAsNewCard(year, index){
         if (!localStorageCardsObject){
             localStorageCardsObject = {};
             localStorageCardsObject[year] = [];
@@ -90,21 +110,10 @@ function ModalWriteCardWindow({}) {
         localStorageCardsObject[year][index] = {};
         localStorageCardsObject[year][index].event = modalCardEventText;
         localStorageCardsObject[year][index].date = modalCardEventDate;
-
-        // else if (modalCardEventYear == year){//if user opens a card and saves it without changing its year
-        //     console.log(modalCardEventYear, year)
-        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
-        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
-        // }
-        // else {//if user opens a card and changes its year
-        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
-        //     localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
-        // }
-        localStorageCardsSave(localStorageCardsObject);
-        setModalCardActive(false);
     }
 
-    function cancelEditing() {
+
+    function offError() {
         setErrorDateLabel("errorLabelOff");
         setErrorTextLabel("errorLabelOff");
         setModalCardActive(false);
@@ -113,23 +122,24 @@ function ModalWriteCardWindow({}) {
     function submitCardText(){
         const a = checkCardTextCorrectness(modalCardEventText);
         const b = checkCardDateCorrectness(modalCardEventDate);
+        console.log("aaa")
         if (a && b){
             saveCardText();
-            cancelEditing();
+            offError();
         }
         else {
-            if (!a) {
-                replayAnimation(setErrorTextLabel);
-            }
-            else {
+            if (a) {
                 setErrorTextLabel("errorLabelOff");
             }
+            else {
+                replayAnimation(setErrorTextLabel);
+            }
 
-            if (!b) {
-                replayAnimation(setErrorDateLabel);
+            if (b) {
+                setErrorDateLabel("errorLabelOff");
             }
             else {
-                setErrorDateLabel("errorLabelOff");
+                replayAnimation(setErrorDateLabel);
             }
         }
     }
@@ -154,18 +164,18 @@ function ModalWriteCardWindow({}) {
 
     return (
         modalCardActive &&
-        <div className="modalCardOverlay" id="menu" onClick={() => {cancelEditing()}}>
+        <div className="modalCardOverlay" id="menu" onClick={() => {offError()}}>
             <div className="modalCardContent" onClick={(event) => {event.stopPropagation()}}>
                 <div className="cardHeader">
                     <h1>Заповніть нову картку</h1>
                 </div>
                 <div className="cardBody">
-                    <form action="">
+                    <form action="src">
                         <label htmlFor="getEvent">Подія:</label>
                         <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="День народження Адміна" />
                         <label htmlFor="getEvent" className={errorTextLabel}>*Поле має містити текст*</label>
                     </form>
-                    <form action="">
+                    <form action="src">
                         <label htmlFor="getDate">Дата:</label>
                         <input className="cardEnter" id="getDate" value={modalCardEventDate} autoComplete={"off"} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
                         <label htmlFor="getDate" className={errorDateLabel}>*Дата введена некоректно*</label>
@@ -173,7 +183,7 @@ function ModalWriteCardWindow({}) {
                 </div>
                 <div className="cardFooter">
                     <div className="leftButton">
-                        <button className="cancel" onClick={() => {cancelEditing()}}>
+                        <button className="cancel" onClick={() => {offError()}}>
                             <h1>Відмінити</h1>
                         </button>
                     </div>
