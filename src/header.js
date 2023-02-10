@@ -15,7 +15,7 @@ import {CardGameContext} from "./context/CardGameContext";
 function Header({}) {
 
     const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
-    const { openEmptyCardEditing, selectionTicksActive, setSelectionTicksActive, appearSelectionTicks } = useContext(CardGameContext);
+    const { openEmptyCardEditing, selectionTicksOpen, setSelectionTicksOpen, appearSelectionTicks } = useContext(CardGameContext);
 
 
 

@@ -11,12 +11,12 @@ function HistoryYearBlock({ year }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
     const {modalCardActive, setModalCardActive,
-        selectionTicksActive, setSelectionTicksActive,
+        selectionTicksOpen, setSelectionTicksOpen,
         modalCardEventText, setModalCardEventText,
         modalCardEventDate, setModalCardEventDate,
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
-        localStorageCardsSave, } = useContext(CardGameContext);
+        localStorageCardsSave, selectionTickActivation, } = useContext(CardGameContext);
 
     async function openCardEditing(i) {
         setModalCardEventText(localStorageCardsObject[year][i].event);
@@ -29,19 +29,21 @@ function HistoryYearBlock({ year }) {
     return (
         <div className="specialYear">
             <div className="yearEmblem">
-                <img src={selectionTick} alt="" className={`tickIcon groupTick offTick ${selectionTicksActive ? "shown" : ""}`}/>
+                <img src={selectionTick} alt="" className={`tickIcon groupTick ${localStorageCardsObject[year][0].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickActivation(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
                 <h1>{year}</h1>
             </div>
             <div className="cardsCollection">
                 {
                     localStorageCardsObject &&
-                    Object.keys(localStorageCardsObject[year]).map((x, i) => //[x]
+                    Object.keys(localStorageCardsObject[year]).map((x, i) => {//[x]
+
+                        return (
                         <div className="basicCard card" onClick={() => {openCardEditing(i)}}>
-                            <img src={selectionTick} alt="" className={`tickIcon individualTick offTick ${selectionTicksActive ? "shown" : ""}`} />
+                            <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickActivation(`individualTick`, year, i)}} />
                             <p>{localStorageCardsObject[year][i].event}</p>
                             <b><p>{localStorageCardsObject[year][i].date}</p></b>
                         </div>
-                    )
+                    )})
                 }
             </div>
         </div>

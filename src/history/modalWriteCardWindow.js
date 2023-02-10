@@ -74,9 +74,8 @@ function ModalWriteCardWindow() {
 
     function saveCardText(){
         const year = modalCardEventDate.slice(-4);
-        let index;
         if (!modalCardEventYear){ //if user creates a new card
-            saveValueAsNewCard(year, index);
+            saveValueAsNewCard(year);
         }
         else if (modalCardEventYear == year){//if user opens a card and saves it without changing its year
             console.log(modalCardEventYear, year)
@@ -92,13 +91,14 @@ function ModalWriteCardWindow() {
                 localStorageCardsObject[modalCardEventYear] = localStorageCardsObject[modalCardEventYear].filter(x => x.date != modalCardEventYear)
             }
 
-            saveValueAsNewCard(year, index);
+            saveValueAsNewCard(year);
         }
         localStorageCardsSave(localStorageCardsObject);
         setModalCardActive(false);
     }
 
-    function saveValueAsNewCard(year, index){
+    function saveValueAsNewCard(year){
+        let index;
         if (!localStorageCardsObject){
             localStorageCardsObject = {};
             localStorageCardsObject[year] = [];
