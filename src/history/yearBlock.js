@@ -1,5 +1,5 @@
 import '../App.css';
-import './historyYearBlock.css';
+import './yearBlock.css';
 import plusWhite from "../images/plusWhite.png";
 import selectionTick from "../images/tick-icon.png";
 import React, { useContext, useState } from "react";
@@ -7,7 +7,7 @@ import Weekdays from "../calendar/weekDays";
 import CalendarContent from "../calendar/calendarContent";
 import {CardGameContext} from "../context/CardGameContext";
 
-function HistoryYearBlock({ year }) {
+function YearBlock({ year }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
 
     const {modalCardActive, setModalCardActive,
@@ -16,7 +16,7 @@ function HistoryYearBlock({ year }) {
         modalCardEventDate, setModalCardEventDate,
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
-        localStorageCardsSave, selectionTickActivation, } = useContext(CardGameContext);
+        localStorageCardsSave, selectionTickClick, } = useContext(CardGameContext);
 
     async function openCardEditing(i) {
         setModalCardEventText(localStorageCardsObject[year][i].event);
@@ -29,7 +29,7 @@ function HistoryYearBlock({ year }) {
     return (
         <div className="specialYear">
             <div className="yearEmblem">
-                <img src={selectionTick} alt="" className={`tickIcon groupTick ${localStorageCardsObject[year][0].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickActivation(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
+                <img src={selectionTick} alt="" className={`tickIcon groupTick ${localStorageCardsObject[year][0].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickClick(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
                 <h1>{year}</h1>
             </div>
             <div className="cardsCollection">
@@ -39,7 +39,7 @@ function HistoryYearBlock({ year }) {
 
                         return (
                         <div className="basicCard card" onClick={() => {openCardEditing(i)}}>
-                            <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickActivation(`individualTick`, year, i)}} />
+                            <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickClick(`individualTick`, year, i)}} />
                             <p>{localStorageCardsObject[year][i].event}</p>
                             <b><p>{localStorageCardsObject[year][i].date}</p></b>
                         </div>
@@ -50,4 +50,4 @@ function HistoryYearBlock({ year }) {
     );
 }
 
-export default HistoryYearBlock;
+export default YearBlock;

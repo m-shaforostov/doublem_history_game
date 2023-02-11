@@ -1,7 +1,7 @@
 import '../App.css';
 import './historyInventory.css';
 import React from "react";
-import HistoryYearBlock from "./historyYearBlock";
+import YearBlock from "./yearBlock";
 
 function HistoryInventory() {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
@@ -10,7 +10,7 @@ function HistoryInventory() {
         <div className={"mainInventory"}>
             {
                 Object.keys(localStorageCardsObject).map((x, i) => //[x]
-                    <HistoryYearBlock year={x}/>
+                    <YearBlock year={x}/>
                 )
             }
         </div>

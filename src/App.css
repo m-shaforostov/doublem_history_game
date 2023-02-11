@@ -34,6 +34,16 @@ p {
   position: relative;
 }
 
+.mainBlock {
+  margin-top: 80px;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height:calc(100vh - 80px);
+  justify-content: center;
+  align-items: center;
+}
+
 .mainDiv {
   display: flex;
   position: relative;

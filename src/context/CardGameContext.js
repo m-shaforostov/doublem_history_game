@@ -1,20 +1,21 @@
 import {createContext, useState, useEffect} from "react";
-import { useEffectOnce } from 'usehooks-ts'
-
+import { useEffectOnce } from 'usehooks-ts';
+import { useNavigate } from "react-router-dom";
 
 export const CardGameContext = createContext({});
 
 export const CardGameContextProvider = ({children}) => {
 
-    const [modalCardActive, setModalCardActive] = useState(false);
-    const [selectionTicksOpen, setSelectionTicksOpen] = useState(false);
-    const [selectedCards, setSelectedCards] = useState([]);
-    const [modalCardEventText, setModalCardEventText] = useState("");
-    const [modalCardEventDate, setModalCardEventDate] = useState("");
-    const [modalCardEventYear, setModalCardEventYear] = useState(1);
-    const [modalCardEventIndex, setModalCardEventIndex] = useState(1);
-    const [cardsObject, setCardsOdject] = useState(                                                                                                                                                                                                                                                                                                                                                                                                                                 {})
+    const [modalCardActive, setModalCardActive] = useState(false); // modal window for card creation of editing
+    const [selectionTicksOpen, setSelectionTicksOpen] = useState(false); // ticks for selecting cards before the game starts
+    const [selectedCards, setSelectedCards] = useState([]); // an array for already selected cards
+    const [modalCardEventText, setModalCardEventText] = useState(""); // text which was written to the event name field (in the modal window for card creation of editing)
+    const [modalCardEventDate, setModalCardEventDate] = useState(""); // text which was written to the event date field (in the modal window for card creation of editing)
+    const [modalCardEventYear, setModalCardEventYear] = useState(1); // the year of the event created
+    const [modalCardEventIndex, setModalCardEventIndex] = useState(1); // the index in an object which contains all created cards
+    const [cardsObject, setCardsOdject] = useState({}); // an object which contains all created cards
 
+    const navigate = useNavigate();
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
     let localStorageSelectedCardsArray = JSON.parse(window.localStorage.getItem('selected_cards_array'));
 
@@ -50,43 +51,53 @@ export const CardGameContextProvider = ({children}) => {
         setModalCardActive(true);
     }
 
+    function startTheGame(){
+        if (!selectionTicksOpen){
+            appearSelectionTicks();
+        }
+        else if (!selectedCards?.[0]){
+            alert("Оберіть хоча б одну карту!")
+        }
+        else {
+            navigate("/History/Game");
+        }
+
+    }
+
     function appearSelectionTicks(){
         if (cardsObject){
-            const a = selectionTicksOpen;
-            setSelectionTicksOpen(!a);//set true!!!!!
+            setSelectionTicksOpen(true); //set true!!!!!
         }
     }
 
-    function selectionTickActivation(imgClass, year , i){
+    function selectionTickClick(imgClass, year , i){
         let selectedCardsCopy = selectedCards;// a copy of state const
+        let index = selectedCardsCopy.length; // number of elements in array, that equals to index of new element in selectedCards array
         if (!selectionTicksOpen){
             setSelectionTicksOpen(true); // appearance of all selectionTicks if it's needed
         }
 
         if (imgClass === `individualTick`){
-            let index = selectedCardsCopy.length; // number of elements in array, that equals to index of new element in selectedCards array
-            selectedCardsCopy[index] = {
-                year: year,
-                id: i,
-                link: localStorageCardsObject[year][i],  // a link to a card in localStorage object to easy change of tickIsActive value
-            }
-            selectedCardsCopy[index].link.tickIsActive = true;// that easy change of tickIsActive value
-            localStorageSelectedCardsSave(selectedCardsCopy);
-            localStorageCardsSave(localStorageCardsObject);
+            pushSelectedElementToAnArray(selectedCardsCopy, index, year , i); // push selected card to the array
+            localStorageSelectedCardsSave(selectedCardsCopy); // save "selectedCardsCopy" to a local storage and a "selectedCards" state
+            localStorageCardsSave(localStorageCardsObject); // save "localStorageCardsObject" to a local storage and a "cardsObject" state
         }
         else if (imgClass === `groupTick`){
-            let index = selectedCardsCopy.length;
             for (let k=0; k < localStorageCardsObject[year].length; k++){
-                selectedCardsCopy[index + k] = {
-                    year: year,
-                    id: k,
-                    link: localStorageCardsObject[year][k],  // a link to a card in localStorage object to easy change of tickIsActive value
-                }
-                selectedCardsCopy[index + k].link.tickIsActive = true;// that easy change of tickIsActive value
+                pushSelectedElementToAnArray(selectedCardsCopy, index + k, year , k); // push every selected card to the array
             }
-            localStorageSelectedCardsSave(selectedCardsCopy);
-            localStorageCardsSave(localStorageCardsObject);
+            localStorageSelectedCardsSave(selectedCardsCopy); // save "selectedCardsCopy" to a local storage and a "selectedCards" state
+            localStorageCardsSave(localStorageCardsObject); // save "localStorageCardsObject" to a local storage and a "cardsObject" state
         }
+    }
+
+    function pushSelectedElementToAnArray(selectedCardsCopy, i, year , k) {
+        selectedCardsCopy[i] = {
+            year: year,
+            id: k,
+            link: localStorageCardsObject[year][k],  // a link to a card in localStorage object to easy change of tickIsActive value
+        }
+        selectedCardsCopy[i].link.tickIsActive = true;// that easy change of tickIsActive value
     }
 
 
@@ -112,8 +123,9 @@ export const CardGameContextProvider = ({children}) => {
         setCardsOdject,
         localStorageCardsSave,
         openEmptyCardEditing,
+        startTheGame,
         appearSelectionTicks,
-        selectionTickActivation,
+        selectionTickClick,
     };
 
     return <CardGameContext.Provider value={value} > {children} </CardGameContext.Provider>
