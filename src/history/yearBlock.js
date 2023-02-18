@@ -6,9 +6,11 @@ import React, { useContext, useState } from "react";
 import Weekdays from "../calendar/weekDays";
 import CalendarContent from "../calendar/calendarContent";
 import {CardGameContext} from "../context/CardGameContext";
+import {useEffectOnce} from "usehooks-ts";
 
 function YearBlock({ year }) {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
+    let localStorageSelectedCardsArray = JSON.parse(window.localStorage.getItem('selected_cards_array'));
 
     const {modalCardActive, setModalCardActive,
         selectionTicksOpen, setSelectionTicksOpen,
@@ -16,7 +18,15 @@ function YearBlock({ year }) {
         modalCardEventDate, setModalCardEventDate,
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
-        localStorageCardsSave, selectionTickClick, } = useContext(CardGameContext);
+        localStorageCardsSave, localStorageSelectedCardsSave, selectionTickClick, clearSelectedTicks, } = useContext(CardGameContext);
+
+
+
+    useEffectOnce(() => {
+        if (localStorageSelectedCardsArray?.[0]){ // check if localStorageSelectedCardsArray isn't empty
+            clearSelectedTicks();
+        }
+    })
 
     async function openCardEditing(i) {
         setModalCardEventText(localStorageCardsObject[year][i].event);
