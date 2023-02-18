@@ -1,10 +1,7 @@
 import '../App.css';
 import './yearBlock.css';
-import plusWhite from "../images/plusWhite.png";
 import selectionTick from "../images/tick-icon.png";
 import React, { useContext, useState } from "react";
-import Weekdays from "../calendar/weekDays";
-import CalendarContent from "../calendar/calendarContent";
 import {CardGameContext} from "../context/CardGameContext";
 import {useEffectOnce} from "usehooks-ts";
 

@@ -1,8 +1,11 @@
 import '../App.css';
 import './historyGameField.css';
+import GameCard from "./gameCard";
+import FlippableBlock from "./testingFile";
 
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import testingFile from "./testingFile";
 
 function HistoryGameField() {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
@@ -56,7 +59,10 @@ function HistoryGameField() {
                     <div className={"correctlyAnsweredCardsNumber"}><p>Неправильно: {correctlyAnswered}</p></div>
                 </div>
                 <div className={"centerCardsPlace"}>
-                    <div className={`${cardsRemaining ? "cards" : "emptiness"}`}></div>
+                    <div className={`${cardsRemaining ? "emptiness" : "emptiness"}`}>
+                        <GameCard index={1}/>
+                        {/*<GameCard index={2}/>*/}
+                    </div>
                 </div>
                 <div className={"buttonsPlace"}>
                     <div className={"topButtons"}>

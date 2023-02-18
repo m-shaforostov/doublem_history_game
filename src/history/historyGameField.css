@@ -23,7 +23,7 @@
     border-bottom: solid 1px #c9c9c9;
 }
 
-.cards {
+.fullness {
     display: flex;
     width: 70%;
     height: 50%;
@@ -32,7 +32,7 @@
     border: solid 1px #c9c9c9;
 }
 
-.cards:hover {
+.fullness:hover {
     cursor: pointer;
     background-color: #ffcbc7;
 }
