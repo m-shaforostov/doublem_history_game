@@ -55,9 +55,10 @@
 
 .gameCard .frontText, .gameCard .backText {
     display: flex;
+    position: absolute;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    color: black;
     top: 0;
     left: 0;
     width: 100%;
@@ -67,4 +68,9 @@
 
 .gameCard .backText {
     transform: rotateY(180deg);
+}
+
+.gameCard:hover {
+    cursor: pointer;
+    background-color: #ffcbc7;
 }

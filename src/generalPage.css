@@ -21,10 +21,18 @@
     color: black;
 }
 
-.pageLink:hover {
+.pageLink:not(.disabled):hover {
     background-color: #ffcbc7;
     border-left: solid 5px #c20d00;
     border-right: solid 5px #c20d00;
     box-sizing: content-box;
     cursor: pointer;
+}
+
+.pageLink.disabled h1{
+    color: grey;
+}
+
+.pageLink.disabled:hover{
+    cursor: not-allowed;
 }

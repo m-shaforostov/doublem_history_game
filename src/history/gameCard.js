@@ -2,7 +2,7 @@ import '../App.css';
 import './gameCard.css';
 import React, {useContext, useState} from "react";
 
-function GameCard({index}) {
+function GameCard({cardsRemaining, cardsArray}) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleFlip = () => {
@@ -10,9 +10,10 @@ function GameCard({index}) {
     };
 
     return (
+        Boolean(cardsRemaining) &&
         <div className={`gameCard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-            <div className="frontText">Front Content</div>
-            <div className="backText">Back Content</div>
+            <div className="frontText">{cardsArray[cardsRemaining-1].link.event}</div>
+            <div className="backText">{cardsArray[cardsRemaining-1].link.date}</div>
         </div>
     );
 }
