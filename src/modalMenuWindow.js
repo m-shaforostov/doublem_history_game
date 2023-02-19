@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {useContext} from "react";
 import {GeneralContext} from "./context/GeneralContext";
 
-function ModalMenuWindow({}) {
+function ModalMenuWindow() {
 
     const { modalMenuActive, setModalMenuActive } = useContext(GeneralContext);
 

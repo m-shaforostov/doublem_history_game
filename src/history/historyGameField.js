@@ -6,15 +6,15 @@ import React, {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function HistoryGameField() {
-    const {localStorageSelectedCardsSave, localStorageCardsSave,} = useContext(CardGameContext);
+    const {localStorageCardsSave, getSelectedCardsArray, clearSelectedTicks, } = useContext(CardGameContext);
 
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
-    let localStorageSelectedCardsArray = JSON.parse(window.localStorage.getItem('selected_cards_array'));
-
-    const [cardsRemaining, setCardsRemaining] = useState(localStorageSelectedCardsArray.length); // number of cards which have not been seen
+    let selectedCardsArray = getSelectedCardsArray();
+    console.log(selectedCardsArray)
+    const [cardsRemaining, setCardsRemaining] = useState(selectedCardsArray.length); // number of cards which have not been seen
     const [wronglyAnswered, setWronglyAnswered] = useState(0);// number of wrongly answered cards
     const [correctlyAnswered, setCorrectlyAnswered] = useState(0);// number of correctly answered cards
-    const [randomArray, setRandomArray] = useState(localStorageSelectedCardsArray.sort(() => Math.random() - 0.5)) // randomise an array of selected cards
+    const [randomArray, setRandomArray] = useState(selectedCardsArray.sort(() => Math.random() - 0.5)) // randomise an array of selected cards
     const navigate = useNavigate();
 
     function changeScore(){ // change number of cards which have not been seen
@@ -31,27 +31,24 @@ function HistoryGameField() {
         setCorrectlyAnswered(correctlyAnswered + 1);
     }
 
-    function deleteButtonClicked(){ // if "deleteButton" have been pushed
-        let randomArrayCopy = randomArray;
-        removeTickSelection(cardsRemaining-1, randomArrayCopy) // remove selection of a relative tick
-        randomArrayCopy.splice(cardsRemaining-1, 1);//delete card from the array
-        setRandomArray(randomArrayCopy); // change relative state
-        localStorageSelectedCardsSave(randomArrayCopy); // change local storage data
+    function deleteButtonClicked(k){ // if "deleteButton" have been pushed
+        const year = parseInt(randomArray[k].year);
+        const id = parseInt(randomArray[k].id);
+        console.log(randomArray)
+        localStorageCardsObject[year][id].tickIsActive = false;
+        localStorageCardsSave(localStorageCardsObject);
+        console.log(localStorageCardsObject)
         changeScore();
     }
 
-    function removeTickSelection(k, randomArrayCopy) {
-        let year = parseInt(randomArrayCopy[k].year);
-        let id = parseInt(randomArrayCopy[k].id);
-        localStorageCardsObject[year][id].tickIsActive = false;
-        localStorageCardsSave(localStorageCardsObject);
-    }
-
-
     function replayButtonClicked(){ // if "replayButton" have been pushed
-        setRandomArray(localStorageSelectedCardsArray.sort(() => Math.random() - 0.5));// again randomise an array of selected cards
-        setCardsRemaining(localStorageSelectedCardsArray.length) // rewrite number of cards which have not been seen
-        if (!localStorageSelectedCardsArray.length){
+        selectedCardsArray = getSelectedCardsArray();
+        console.log(selectedCardsArray, 1)
+        setRandomArray(selectedCardsArray.sort(() => Math.random() - 0.5));// again randomise an array of selected cards
+        setCardsRemaining(selectedCardsArray.length) // rewrite number of cards which have not been seen
+        console.log(randomArray, 2)
+
+        if (!selectedCardsArray.length){
             leaveButtonClicked();
             alert("На жаль, карточок для гри не залишилось. Оберіть нову підбірку.");
         }
@@ -61,6 +58,7 @@ function HistoryGameField() {
 
     function leaveButtonClicked(){
         navigate("/History");
+        clearSelectedTicks();
     }
 
     return (
@@ -74,7 +72,7 @@ function HistoryGameField() {
                 <div className={"centerCardsPlace"}>
                     <div className={"emptyCardPlace"}>
                         <div className={cardsRemaining > 1 ? `backGameCard` : `hidden`}>
-                            {randomArray[cardsRemaining-2]?.link.event}
+                            {randomArray[cardsRemaining-2]?.event}
                         </div>
                         <GameCard cardsRemaining={cardsRemaining} cardsArray={randomArray}/>
                     </div>
@@ -87,7 +85,7 @@ function HistoryGameField() {
                         <div className={`replayButton gameButtons ${cardsRemaining ? "inactiveButton" : ""}`} onClick={() => {replayButtonClicked()}}><p><b>Replay</b></p></div>
                     </div>
                     <div className={"bottomButtons"}>
-                        <div className={`deleteCardButton gameButtons ${cardsRemaining ? "" : "inactiveButton"}`} onClick={() => {deleteButtonClicked()}}><p><b>Delete</b></p></div>
+                        <div className={`deleteCardButton gameButtons ${cardsRemaining ? "" : "inactiveButton"}`} onClick={() => {deleteButtonClicked(cardsRemaining-1)}}><p><b>Delete</b></p></div>
 
                         <div className={`leaveButton gameButtons`} onClick={() => {leaveButtonClicked()}}><p><b>Leave Game</b></p></div>
                     </div>

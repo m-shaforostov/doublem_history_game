@@ -12,8 +12,8 @@ function GameCard({cardsRemaining, cardsArray}) {
     return (
         Boolean(cardsRemaining) &&
         <div className={`gameCard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-            <div className="frontText">{cardsArray[cardsRemaining-1].link.event}</div>
-            <div className="backText">{cardsArray[cardsRemaining-1].link.date}</div>
+            <div className="frontText">{cardsArray[cardsRemaining-1]?.event}</div>
+            <div className="backText">{cardsArray[cardsRemaining-1]?.date}</div>
         </div>
     );
 }

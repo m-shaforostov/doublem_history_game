@@ -1,7 +1,7 @@
 import '../App.css';
 import './yearBlock.css';
 import selectionTick from "../images/tick-icon.png";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {CardGameContext} from "../context/CardGameContext";
 import {useEffectOnce} from "usehooks-ts";
 
@@ -15,6 +15,7 @@ function YearBlock({ year }) {
         modalCardEventDate, setModalCardEventDate,
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
+        yearTickObject, setYearTickObject,
         localStorageCardsSave, localStorageSelectedCardsSave, selectionTickClick, clearSelectedTicks, } = useContext(CardGameContext);
 
 
@@ -36,7 +37,7 @@ function YearBlock({ year }) {
     return (
         <div className="specialYear">
             <div className="yearEmblem">
-                <img src={selectionTick} alt="" className={`tickIcon groupTick ${localStorageCardsObject[year][0].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickClick(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
+                <img src={selectionTick} alt="" className={`tickIcon groupTick ${yearTickObject[year] ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickClick(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
                 <h1>{year}</h1>
             </div>
             <div className="cardsCollection">
