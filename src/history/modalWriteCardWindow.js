@@ -1,38 +1,9 @@
 import './modalWriteCardWindow.css'
 import '../App.css'
 import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
 import {CardGameContext} from "../context/CardGameContext";
 
-// {, setActive, x, y, weekNumb, cellsObject, funcSetCellText, funcSetCellValitidy} // 7
-
 function ModalWriteCardWindow() {
-    // let taskText = document.getElementsByClassName("taskEnter");
-    // const cellText = cellsObject[weekNumb][y].text[x];
-    // const cellValidity = cellsObject[weekNumb][y].validity[x];
-    //
-    // const [text, setText] = useState(cellText);
-    //
-    // const validityButtonClass = !cellValidity ? "startedTask" : "endedTask";
-    // const validityButtonTextName = !cellValidity ? "Завершити" : "Повернути";
-    //
-    // function changeFieldText(event) {
-    //     setText(event.target.value);
-    // }
-    // useEffect(() => {
-    //     const textarea = document.querySelector("textarea");
-    //     textarea.focus();
-    // })
-
-
-    // const [textEvent, setTextEvent] = useState("");
-    // const [textDate, setTextDate] = useState("");
-    //
-    // useEffect(() => {
-    //     setTextEvent(modalEventText);
-    //     setTextDate(modalEventDate);
-    // }, [])
-
     const { modalCardActive, setModalCardActive,
         modalCardEventText, setModalCardEventText,
         modalCardEventDate, setModalCardEventDate,
@@ -52,6 +23,12 @@ function ModalWriteCardWindow() {
                 event.preventDefault();
                 if (modalCardActive){
                     submitCardText();
+                }
+            }
+            else if (event.code === "Escape") { // leave card changing
+                event.preventDefault();
+                if (modalCardActive){
+                    setModalCardActive(false);
                 }
             }
         };
@@ -78,13 +55,12 @@ function ModalWriteCardWindow() {
             saveValueAsNewCard(year);
         }
         else if (modalCardEventYear == year){//if user opens a card and saves it without changing its year
-            console.log(modalCardEventYear, year)
             localStorageCardsObject[modalCardEventYear][modalCardEventIndex].event = modalCardEventText;
             localStorageCardsObject[modalCardEventYear][modalCardEventIndex].date = modalCardEventDate;
         }
         else {//if user opens a card and changes its year
             if (localStorageCardsObject[modalCardEventYear].length === 1){
-                localStorageCardsObject = localStorageCardsObject.filter()
+                delete localStorageCardsObject[modalCardEventYear];
             }
             else{
                 // localStorageCardsObject[modalCardEventYear].splice(modalCardEventIndex, 1);
@@ -98,7 +74,6 @@ function ModalWriteCardWindow() {
     }
 
     function saveValueAsNewCard(year){
-        let index;
         if (!localStorageCardsObject){
             localStorageCardsObject = {};
             localStorageCardsObject[year] = [];
@@ -106,7 +81,7 @@ function ModalWriteCardWindow() {
         else if (!localStorageCardsObject[year]){
             localStorageCardsObject[year] = [];
         }
-        index = localStorageCardsObject[year].length;
+        let index = localStorageCardsObject[year].length;
         localStorageCardsObject[year][index] = {};
         localStorageCardsObject[year][index].event = modalCardEventText;
         localStorageCardsObject[year][index].date = modalCardEventDate;
@@ -122,7 +97,6 @@ function ModalWriteCardWindow() {
     function submitCardText(){
         const a = checkCardTextCorrectness(modalCardEventText);
         const b = checkCardDateCorrectness(modalCardEventDate);
-        console.log("aaa")
         if (a && b){
             saveCardText();
             offError();

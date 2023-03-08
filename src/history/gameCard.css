@@ -41,7 +41,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    border: solid 1px #c9c9c9;
+    /*border: solid 1px #c9c9c9;*/
     box-sizing: border-box;
     background-color: #ffdedb;
     transform-style: preserve-3d;
@@ -49,7 +49,7 @@
     perspective: 1000px;
 }
 
-.gameCard.flipped {
+.gameCard#flipped {
     transform: rotateY(180deg);
 }
 

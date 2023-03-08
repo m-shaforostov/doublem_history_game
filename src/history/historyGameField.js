@@ -10,15 +10,25 @@ function HistoryGameField() {
 
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
     let selectedCardsArray = getSelectedCardsArray();
-    console.log(selectedCardsArray)
     const [cardsRemaining, setCardsRemaining] = useState(selectedCardsArray.length); // number of cards which have not been seen
     const [wronglyAnswered, setWronglyAnswered] = useState(0);// number of wrongly answered cards
     const [correctlyAnswered, setCorrectlyAnswered] = useState(0);// number of correctly answered cards
     const [randomArray, setRandomArray] = useState(selectedCardsArray.sort(() => Math.random() - 0.5)) // randomise an array of selected cards
     const navigate = useNavigate();
 
+    const [isFlipped, setIsFlipped] = useState(false); // is card flipped
+
     function changeScore(){ // change number of cards which have not been seen
         setCardsRemaining(cardsRemaining - 1);
+
+        if (isFlipped){ // if any button was pushed when card is flipped, it is needed to flip it back
+            let cardInformation = document.getElementById('flipped');
+            cardInformation.style.transition = '0s';
+            setIsFlipped(false); // flip
+            setInterval(() => {
+                cardInformation.style.transition = '0.6s';
+            }, 0)
+        }
     }
 
     function wrongButtonClicked(){ // if "wrongButton" have been pushed
@@ -74,7 +84,7 @@ function HistoryGameField() {
                         <div className={cardsRemaining > 1 ? `backGameCard` : `hidden`}>
                             {randomArray[cardsRemaining-2]?.event}
                         </div>
-                        <GameCard cardsRemaining={cardsRemaining} cardsArray={randomArray}/>
+                        <GameCard cardsRemaining={cardsRemaining} cardsArray={randomArray} isFlipped={isFlipped} setIsFlipped={setIsFlipped}/>
                     </div>
                 </div>
                 <div className={"buttonsPlace"}>

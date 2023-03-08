@@ -1,6 +1,6 @@
 import '../App.css';
 import './noCardsExist.css';
-import React, {useEffect, useState, useContext} from "react";
+import React, {useContext} from "react";
 import plusWhite from "../images/plusWhite.png";
 import {CardGameContext} from "../context/CardGameContext";
 

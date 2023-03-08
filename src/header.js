@@ -4,7 +4,7 @@ import logo from "./images/logo.png";
 import menu from "./images/menu.png";
 import GeneralPage from "./generalPage";
 import WeekBlocks from "./calendar/weekBlocks";
-import HistoryCards from "./history/historyCards";
+import HistoryMainPage from "./history/historyMainPage";
 import {Routes, Route, Link} from "react-router-dom";
 import whitePlay from "./images/play.png";
 import whitePlus from "./images/WhitePlus.png";
@@ -36,12 +36,13 @@ function Header({}) {
                     <Route path='/' element={<h2>Головна</h2>}/>
                     <Route path='/Calendar/*' element={<h2>Календар</h2>}/>
                     <Route path='/History/*' element={<h2>Історія</h2>}/>
+                    <Route path='/TESTS' element={<h2>Tests</h2>}/>
                 </Routes>
             </div>
             <div className="right-bnts">
                 <Routes>
                     <Route path='/History' element={
-                        <div className="playGame-btn" title='Add new card'>
+                        <div className="playGame-btn" title='Start game'>
                             <img src={whitePlay} alt="" onClick={() => {startTheGame()}}/>
                         </div>
                     }/>

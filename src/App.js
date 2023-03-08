@@ -7,8 +7,9 @@ import ModalMenuWindow from "./modalMenuWindow";
 import WeekBlocks from "./calendar/weekBlocks";
 import GeneralPage from "./generalPage";
 import Header from "./header";
-import HistoryCards from "./history/historyCards";
+import HistoryMainPage from "./history/historyMainPage";
 import HistoryGameField from "./history/historyGameField";
+import TESTS from "./TESTS";
 import {CardGameContextProvider} from "./context/CardGameContext";
 import {GeneralContextProvider} from "./context/GeneralContext";
 
@@ -28,8 +29,9 @@ function App() {
                             <Routes>
                                 <Route path='/' element={<GeneralPage/>} />
                                 <Route path='/Calendar' element={<WeekBlocks/>} />
-                                <Route path='/History' element={<HistoryCards/>} />
+                                <Route path='/History' element={<HistoryMainPage/>} />
                                 <Route path='/History/Game' element={<HistoryGameField/>} />
+                                <Route path='/TESTS' element={<TESTS/>} />
                             </Routes>
                         </div>
                     </div>

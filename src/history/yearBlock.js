@@ -16,7 +16,7 @@ function YearBlock({ year }) {
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
         yearTickObject, setYearTickObject,
-        localStorageCardsSave, localStorageSelectedCardsSave, selectionTickClick, clearSelectedTicks, } = useContext(CardGameContext);
+        selectionTickClick, clearSelectedTicks, } = useContext(CardGameContext);
 
 
 
