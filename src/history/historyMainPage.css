@@ -9,6 +9,14 @@ p{
 }
 
 .cardTable {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    min-width: calc(100vw - 20px);
+    margin: 90px 10px 0 10px;
+}
+
+.emptyCardTable {
     display: flex;
     position: relative;
     width: auto;

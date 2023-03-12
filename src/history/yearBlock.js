@@ -1,6 +1,7 @@
 import '../App.css';
 import './yearBlock.css';
 import selectionTick from "../images/tick-icon.png";
+import trashIcon from "../images/trash-can-icon-png.jpg";
 import React, { useContext } from "react";
 import {CardGameContext} from "../context/CardGameContext";
 import {useEffectOnce} from "usehooks-ts";
@@ -16,7 +17,8 @@ function YearBlock({ year }) {
         modalCardEventYear, setModalCardEventYear,
         modalCardEventIndex, setModalCardEventIndex,
         yearTickObject, setYearTickObject,
-        selectionTickClick, clearSelectedTicks, } = useContext(CardGameContext);
+        selectionTickClick, clearSelectedTicks,
+        localStorageCardsSave, } = useContext(CardGameContext);
 
 
 
@@ -34,6 +36,16 @@ function YearBlock({ year }) {
         setModalCardActive(true);
     }
 
+    function deleteCard(year, i) {
+        if(localStorageCardsObject[year].length === 1){
+            delete localStorageCardsObject[year];
+        }
+        else {
+            localStorageCardsObject[year].splice(i,1);
+        }
+        localStorageCardsSave(localStorageCardsObject)
+    }
+
     return (
         <div className="specialYear">
             <div className="yearEmblem">
@@ -48,6 +60,7 @@ function YearBlock({ year }) {
                         return (
                         <div className="basicCard card" onClick={() => {openCardEditing(i)}}>
                             <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickClick(`individualTick`, year, i)}} />
+                            <img src={trashIcon}  className={`individualTrash`} onClick={(event) => {event.stopPropagation(); deleteCard(year, i)}} />
                             <p>{localStorageCardsObject[year][i].event}</p>
                             <b><p>{localStorageCardsObject[year][i].date}</p></b>
                         </div>

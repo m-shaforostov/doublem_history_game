@@ -93,26 +93,31 @@
     border: #c20d00 solid 1px;
     display: flex;
     height: 45px;
+    justify-content: center;
+    align-items: center;
 }
 
 .rightButton {
     display: flex;
     margin-right: 25px;
+    width: 100px;
+}
+
+.leftButton {
+    display: flex;
+    margin-left: 25px;
+    width: 100px;
 }
 
 button:hover {
     cursor: pointer;
 }
 
+
 .cancel {
     color: #c20d00;
     background-color: white;
-    padding: 10px;
     font-size: 8px;
-}
-
-button h1 {
-    justify-content: center;
 }
 
 .cancel:hover {
@@ -120,7 +125,6 @@ button h1 {
     background-color: #ffcbc7;
     padding: 10px;
     font-size: 8px;
-    text-align: center;
 }
 
 .save {
@@ -128,7 +132,6 @@ button h1 {
     background: #c20d00;
     padding: 10px;
     font-size: 8px;
-    text-align: center;
 }
 
 .save:hover{
@@ -136,13 +139,6 @@ button h1 {
     background: #ff7066;
     padding: 10px;
     font-size: 8px;
-    text-align: center;
-}
-
-.leftButton {
-    display: flex;
-    margin-left: 25px;
-    width: 100px;
 }
 
 @keyframes errorLabelMovement{
