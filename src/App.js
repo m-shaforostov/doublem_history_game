@@ -20,7 +20,7 @@ function App() {
         <GeneralContextProvider>
             <CardGameContextProvider>
                 <div className="mainDiv">
-                    {/*<Intro/>*/}
+                    <Intro/>
                     <div className="siteMainDiv">
                         <Header/>
                         <div className="content">
