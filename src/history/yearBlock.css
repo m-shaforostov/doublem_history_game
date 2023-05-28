@@ -137,3 +137,12 @@
         width: 100%;
     }
 }
+
+@media only screen and (hover: none) and (pointer: coarse){
+    .groupTick, .individualTrash{
+        display: flex;
+    }
+    .inventoryCard:hover {
+        background-color:white;
+    }
+}

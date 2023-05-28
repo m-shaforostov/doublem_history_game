@@ -47,6 +47,17 @@ function YearBlock({ year }) {
     }
 
 
+    let buttonPressTimer;
+    function buttonPressStart(year, i) {
+        buttonPressTimer = setTimeout(() => {
+            selectionTickClick(`individualTick`, year, i)
+        }, 500);
+    }
+
+    function buttonPressEnd() {
+        clearTimeout(buttonPressTimer);
+    }
+
     return (
         <div className="specialYear">
             <div className="yearEmblem">
@@ -58,12 +69,12 @@ function YearBlock({ year }) {
                     {
                         localStorageCardsObject &&
                         Object.keys(localStorageCardsObject[year]).map((x, i) => {//[x]
-                            let lastCard = "";
-                            if (i === 0){
-                                lastCard = "lastCard";
-                            }
                             return (
-                                <div className={`inventoryCard`} onClick={() => {openCardEditing(i)}}>
+                                <div className={`inventoryCard`}
+                                     onClick={() => {openCardEditing(i)}}
+                                     onTouchStart={() => {buttonPressStart(year, i)}}
+                                     onTouchEnd={buttonPressEnd}
+                                     onTouchMove={buttonPressEnd}>
                                     <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickClick(`individualTick`, year, i)}} />
                                     <img src={trashIcon}  className={`individualTrash`} onClick={(event) => {event.stopPropagation(); deleteCard(year, i)}} />
                                     <p>{localStorageCardsObject[year][i].event}</p>
