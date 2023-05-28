@@ -2,6 +2,7 @@ import '../App.css';
 import './historyInventory.css';
 import React from "react";
 import YearBlock from "./yearBlock";
+import ButtonsAddAndPlay from "./buttonsAddAndPlay";
 
 function HistoryInventory() {
     let localStorageCardsObject = JSON.parse(window.localStorage.getItem('cards_object'));
@@ -14,6 +15,7 @@ function HistoryInventory() {
                     <YearBlock year={x}/>
                 )
             }
+            <ButtonsAddAndPlay/>
         </div>
     );
 }

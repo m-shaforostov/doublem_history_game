@@ -1,12 +1,16 @@
 
 
-.noCardMessage {
+.noCardMessageContainer {
     display: flex;
     position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 80px;
+}
+
+.noCardMessage {
+    text-align: center;
 }
 
 .addFirstCard-btn{
@@ -31,4 +35,10 @@
     margin: auto;
     cursor: pointer;
     -webkit-user-drag: none;
+}
+
+@media (max-width: 348px) {
+    .noCardMessageContainer {
+        font-size: 40px;
+    }
 }

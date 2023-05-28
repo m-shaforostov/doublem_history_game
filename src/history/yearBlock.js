@@ -46,27 +46,34 @@ function YearBlock({ year }) {
         localStorageCardsSave(localStorageCardsObject)
     }
 
+
     return (
         <div className="specialYear">
             <div className="yearEmblem">
                 <img src={selectionTick} alt="" className={`tickIcon groupTick ${yearTickObject[year] ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={() => {selectionTickClick(`groupTick`, year,0)}} /> {/*show color under another circumstance*/}
                 <h1>{year}</h1>
             </div>
-            <div className="cardsCollection">
-                {
-                    localStorageCardsObject &&
-                    Object.keys(localStorageCardsObject[year]).map((x, i) => {//[x]
-
-                        return (
-                        <div className="basicCard card" onClick={() => {openCardEditing(i)}}>
-                            <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickClick(`individualTick`, year, i)}} />
-                            <img src={trashIcon}  className={`individualTrash`} onClick={(event) => {event.stopPropagation(); deleteCard(year, i)}} />
-                            <p>{localStorageCardsObject[year][i].event}</p>
-                            <b><p>{localStorageCardsObject[year][i].date}</p></b>
-                        </div>
-                    )})
-                }
+            <div className="collectionContainer" >
+                <div className="cardsCollection">
+                    {
+                        localStorageCardsObject &&
+                        Object.keys(localStorageCardsObject[year]).map((x, i) => {//[x]
+                            let lastCard = "";
+                            if (i === 0){
+                                lastCard = "lastCard";
+                            }
+                            return (
+                                <div className={`inventoryCard`} onClick={() => {openCardEditing(i)}}>
+                                    <img src={selectionTick}  className={`tickIcon individualTick ${localStorageCardsObject[year][i].tickIsActive ? "" : "offTick"} ${selectionTicksOpen ? "shown" : ""}`} onClick={(event) => {event.stopPropagation(); selectionTickClick(`individualTick`, year, i)}} />
+                                    <img src={trashIcon}  className={`individualTrash`} onClick={(event) => {event.stopPropagation(); deleteCard(year, i)}} />
+                                    <p>{localStorageCardsObject[year][i].event}</p>
+                                    <b><p>{localStorageCardsObject[year][i].date}</p></b>
+                                </div>
+                            )})
+                    }
+                </div>
             </div>
+
         </div>
     );
 }

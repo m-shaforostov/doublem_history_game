@@ -90,8 +90,8 @@ export const CardGameContextProvider = ({children}) => {
             appearSelectionTicks();
         }
         else if (_.isEmpty(getSelectedCardsArray())){ // if it was the second start button push, but returned by function array is empty
-            alert("Оберіть хоча б одну карту!")
-
+            // alert("Оберіть хоча б одну карту!")
+            setSelectionTicksOpen(false);
         }
         else { // if it was the second one and there were some cards selected
 

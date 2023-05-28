@@ -1,8 +1,11 @@
 import './App.css';
 import './generalPage.css';
 import { NavLink } from "react-router-dom";
+import {useContext} from "react";
+import {GeneralContext} from "./context/GeneralContext";
 
 function GeneralPage() {
+    const { preventLinkChange } = useContext(GeneralContext);
 
     return (
         <div className="mainBlock">
@@ -11,7 +14,7 @@ function GeneralPage() {
                     <NavLink to="/History" className="pageLink"><h1>History</h1></NavLink>
                 </div>
                 <div className="linkWraper calendar">
-                    <NavLink to={true ? "" : "/Calendar"} className="pageLink disabled"><h1>Calendar</h1></NavLink>
+                    <NavLink to="/Calendar" onClick={preventLinkChange} className="pageLink disabled"><h1>Calendar</h1></NavLink>
                 </div>
             </div>
         </div>

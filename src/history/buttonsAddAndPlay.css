@@ -1,0 +1,39 @@
+.buttonsContainer {
+    display: none;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+    width: 135px;
+    height: 80px;
+    justify-content: space-between;
+}
+
+.button {
+    display: flex;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    background: #c20d00;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button img {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.bottomWhitePlay {
+    margin-left: 3px;
+}
+
+@media (max-width: 630px) {
+    .buttonsContainer {
+        display: flex;
+    }
+}
+

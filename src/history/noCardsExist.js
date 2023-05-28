@@ -9,8 +9,8 @@ function NoCardsExist() {
     const { openEmptyCardEditing } = useContext(CardGameContext);
 
     return (
-        <div className="noCardMessage">
-            <div>Add your first card</div>
+        <div className="noCardMessageContainer">
+            <div className="noCardMessage">Add your first card</div>
             <div className="addFirstCard-btn" title='Add new card' onClick={() => {openEmptyCardEditing()}}>
                 <img src={plusWhite} alt="" />
             </div>

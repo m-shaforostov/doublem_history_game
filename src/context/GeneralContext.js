@@ -11,9 +11,14 @@ export const GeneralContextProvider = ({children}) => {
     //     window.localStorage.setItem('cards_object', JSON.stringify(value));
     // }
 
+    function preventLinkChange (e) {
+        e.preventDefault()
+    }
+
     const value = {
         modalMenuActive,
         setModalMenuActive,
+        preventLinkChange,
     };
 
     return <GeneralContext.Provider value={value} > {children} </GeneralContext.Provider>

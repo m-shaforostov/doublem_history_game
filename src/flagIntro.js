@@ -1,5 +1,5 @@
 import './flagIntro.css';
-import flagImg from "./images/80b435a7b96a.webp";
+import flagImg from "./images/flag-of-Ukraine.png";
 import {useState} from "react";
 
 function Intro() {
@@ -28,7 +28,7 @@ function Intro() {
                     <img src={flagImg} alt="" className={flag}/>
                 </div>
                 <div className={back}></div>
-                <div className={text}>
+                <div className={`${text} text`}>
                     <p>[Клацніть, щоб продовжити]</p>
                 </div>
             </div>
