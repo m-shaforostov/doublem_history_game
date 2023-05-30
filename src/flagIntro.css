@@ -134,7 +134,7 @@
     transition: 1000ms;
 }
 
-p {
+.text p {
     color: gray;
     text-align: center;
 }

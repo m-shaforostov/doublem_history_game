@@ -33,6 +33,7 @@ p {
   margin: 0;
   display: flex;
   position: relative;
+  color: black;
 }
 
 .mainBlock {

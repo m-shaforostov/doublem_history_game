@@ -147,12 +147,12 @@ function ModalWriteCardWindow() {
                 </div>
                 <div className="cardBody">
                     <form action="src">
-                        <label htmlFor="getEvent">Подія:</label>
-                        <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="День народження Адміна" />
+                        <label htmlFor="getEvent">Event:</label>
+                        <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="My birthday" />
                         <label htmlFor="getEvent" className={errorTextLabel}>*Поле має містити текст*</label>
                     </form>
                     <form action="src">
-                        <label htmlFor="getDate">Дата:</label>
+                        <label htmlFor="getDate">Date:</label>
                         <input className="cardEnter" id="getDate" value={modalCardEventDate} autoComplete={"off"} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
                         <label htmlFor="getDate" className={errorDateLabel}>*Дата введена некоректно*</label>
                     </form>
@@ -160,12 +160,12 @@ function ModalWriteCardWindow() {
                 <div className="cardFooter">
                     <div className="leftButton">
                         <button className="cancel" onClick={() => {offError()}}>
-                            <h1>Відмінити</h1>
+                            <h1>Cancel</h1>
                         </button>
                     </div>
                     <div className="rightButton">
                         <button className="save" onClick={() => {submitCardText()}}>
-                            <h1>Зберегти</h1>
+                            <h1>Save</h1>
                         </button>
                     </div>
                 </div>

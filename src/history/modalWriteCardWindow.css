@@ -21,6 +21,7 @@
     height: 300px;
     width: 560px;
     display: flex;
+    margin: 0 10px;
     background: white;
     transition: 0.3s;
 }
@@ -29,12 +30,14 @@
 .cardHeader {
     height: 60px;
     width: 100%;
+    padding-top: 5px;
 }
 
 .cardHeader h1 {
     color: #c20d00;
     justify-content: center;
     align-items: center;
+    text-align: center;
     height: 100%;
 }
 
@@ -92,7 +95,8 @@
 .cardFooter button {
     border: #c20d00 solid 1px;
     display: flex;
-    height: 45px;
+    height: 40px;
+    width: 100%;
     justify-content: center;
     align-items: center;
 }

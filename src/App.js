@@ -29,7 +29,7 @@ function App() {
 
                             <Routes>
                                 <Route path='/' element={<GeneralPage/>} />
-                                <Route path='/Calendar' element={<WeekBlocks/>} />
+                                <Route path='/Calendar' element={<TESTS/>} /> {/* <WeekBlocks/> */}
                                 <Route path='/History' element={<HistoryMainPage/>} />
                                 <Route path='/History/Game' element={<HistoryGameField/>} />
                                 <Route path='/TESTS' element={<TESTS/>} />

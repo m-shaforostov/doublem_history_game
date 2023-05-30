@@ -33,9 +33,9 @@ function Header({}) {
             </Link>
             <div className="pageName">
                 <Routes>
-                    <Route path='/' element={<h2>Головна</h2>}/>
-                    <Route path='/Calendar/*' element={<h2>Календар</h2>}/>
-                    <Route path='/History/*' element={<h2>Історія</h2>}/>
+                    <Route path='/' element={<h2>General</h2>}/>
+                    <Route path='/Calendar/*' element={<h2>Calendar</h2>}/>
+                    <Route path='/History/*' element={<h2>History</h2>}/>
                     <Route path='/TESTS' element={<h2>Tests</h2>}/>
                 </Routes>
             </div>
