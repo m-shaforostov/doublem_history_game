@@ -21,7 +21,7 @@ function App() {
             <CardGameContextProvider>
                 <div className="mainDiv">
                     TODO
-                    {/*<Intro/>*/}
+                    <Intro/>
                     <div className="siteMainDiv">
                         <Header/>
                         <div className="content">
