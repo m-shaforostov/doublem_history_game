@@ -1,4 +1,5 @@
 import './modalWriteCardWindow.css'
+import './writeCardAdapt.css'
 import '../App.css'
 import React, { useContext, useEffect, useState } from "react";
 import {CardGameContext} from "../context/CardGameContext";
@@ -138,7 +139,15 @@ function ModalWriteCardWindow() {
         return string.match(regexText);
     }
 
+    function autoResize(id) {
+        const textarea = document.getElementById(id);
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+
     return (
+
         modalCardActive &&
         <div className="modalCardOverlay" id="menu" onClick={() => {offError()}}>
             <div className="modalCardContent" onClick={(event) => {event.stopPropagation()}}>
@@ -148,12 +157,12 @@ function ModalWriteCardWindow() {
                 <div className="cardBody">
                     <form action="src">
                         <label htmlFor="getEvent">Event:</label>
-                        <input className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"} onChange={changeFieldTextEvent}  type="text" placeholder="My birthday" />
+                        <textarea className="cardEnter" id="getEvent" value={modalCardEventText} autoComplete={"off"}  onChange={changeFieldTextEvent}  type="text" placeholder="My birthday" />
                         <label htmlFor="getEvent" className={errorTextLabel}>*Поле має містити текст*</label>
                     </form>
                     <form action="src">
                         <label htmlFor="getDate">Date:</label>
-                        <input className="cardEnter" id="getDate" value={modalCardEventDate} autoComplete={"off"} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
+                        <textarea className="cardEnter" id="getDate" value={modalCardEventDate} autoComplete={"off"} onChange={changeFieldTextDate}  type="text" placeholder="27.10.2005"/>
                         <label htmlFor="getDate" className={errorDateLabel}>*Дата введена некоректно*</label>
                     </form>
                 </div>

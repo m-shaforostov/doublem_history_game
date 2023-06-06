@@ -1,6 +1,5 @@
 import './App.css';
 import './header.css';
-import {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import Intro from "./flagIntro";
 import ModalMenuWindow from "./modalMenuWindow";
@@ -21,7 +20,7 @@ function App() {
             <CardGameContextProvider>
                 <div className="mainDiv">
                     TODO
-                    <Intro/>
+                    {/*<Intro/>*/}
                     <div className="siteMainDiv">
                         <Header/>
                         <div className="content">

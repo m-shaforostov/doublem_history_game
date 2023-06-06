@@ -1,0 +1,41 @@
+@media (max-width: 630px) {
+    .modalCardContent {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow-y: auto;
+    }
+
+    .cardHeader {
+        height: 60px;
+        border-bottom: solid 1px #c9c9c9;
+    }
+
+    .cardBody {
+        height: unset;
+        width: 60%;
+        font-size: 20px;
+        flex-direction: column;
+        justify-content: unset;
+        color: black;
+    }
+
+    .cardEnter {
+        min-height: 25px;
+        box-sizing: content-box;
+        overflow-wrap: anywhere;
+        resize: none;
+    }
+
+    #getDate {
+        height: 25px;
+    }
+
+    #getEvent {
+        height: 75px;
+    }
+
+    .cardBody form {
+        margin-bottom: 10px;
+    }
+}
